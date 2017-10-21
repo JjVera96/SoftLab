@@ -11,14 +11,16 @@ from .managers import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
 	identification = models.CharField(_('identification'), primary_key=True, max_length=30, unique=True)
 	email = models.EmailField(_('email address'))
-	first_name = models.CharField(_('first name'), max_length=30, blank=True)
+	first_name = models.CharField(_('first name'), max_length=30)
 	second_name = models.CharField(_('second name'), max_length=30, blank=True)
-	last_name = models.CharField(_('first last name'), max_length=30, blank=True)
-	second_last_name = models.CharField(_('second last name'), max_length=30, blank=True)
-	gender = models.CharField(_('gender'), max_length=30, blank=True)
+	last_name = models.CharField(_('first last name'), max_length=30)
+	second_last_name = models.CharField(_('second last name'), max_length=30)
+	gender = models.CharField(_('gender'), max_length=30)
 	date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
 	is_staff = models.BooleanField(_('is_staff'), default=False)	
 	is_active = models.BooleanField(_('is_active'), default=False)
+	is_graduated = models.BooleanField(_('is_graduated'), default=False)
+	is_admin = models.BooleanField(_('is_admin'), default=False)
 	
 	objects = UserManager()
 
@@ -43,8 +45,8 @@ class Egresado(models.Model):
 		verbose_name_plural = _('Egresados')
 	
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	country = models.CharField(_('country'), max_length=30, blank=True)	
-	career = models.CharField(_('career'), max_length=30, blank=True)
+	country = models.CharField(_('country'), max_length=30)	
+	career = models.CharField(_('career'), max_length=30)
 	graduation = models.DateTimeField(_('graduation year'))
 
 	def __unicode__(self):
@@ -56,6 +58,7 @@ class Admin(models.Model):
 		verbose_name_plural = _('Administradores')
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	address = models.CharField(_('address'), max_length=50)
 
 	def __unicode__(self):
 		return unicode(self.user)

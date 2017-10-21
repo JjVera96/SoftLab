@@ -4,9 +4,6 @@ class UserManager(BaseUserManager):
 	use_in_migrations = True
 
 	def _create_user(self, identification, password, **extra_fields):
-		"""
-		Creates and saves a User with the given identification and password.
-		"""
 		if not identification:
 			raise ValueError('The given identification must be set')
 		user = self.model(identification=identification, **extra_fields)

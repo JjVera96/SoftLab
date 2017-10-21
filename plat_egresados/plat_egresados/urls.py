@@ -21,10 +21,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
+    url(r'^login$', views.view_login, name='login'),
+    url(r'^logout$', views.view_logout, name='logout'),
     url(r'^registrar$', views.register, name='registrar'),
     url(r'^registrarEgresado$', views.register_eg, name='registrar_egresado'),
     url(r'^registrarAdmon$', views.register_admin, name='registrar_admin'),
+    url(r'^$', views.index, name='index'),
+
 ]
 
 if settings.DEBUG:
