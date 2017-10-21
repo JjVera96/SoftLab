@@ -10,6 +10,7 @@ from .forms import User_Form, Egre_Form, Admin_Form, Login_Form
 from .models import User, Egresado, Admin
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.models import Group
 
 valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -24,9 +25,7 @@ def view_login(request):
 		form_data = login_form.cleaned_data
 		id_user = form_data.get("id_user")
 		password = form_data.get("password")
-		print id_user, password
 		acceso = authenticate(username=id_user, password=password)
-		print acceso
 		if acceso is not None:
 			login(request, acceso)
 			return HttpResponseRedirect("/")
@@ -38,6 +37,10 @@ def view_login(request):
 def view_logout(request):
 	logout(request)
 	return render(request, "logout.html", {})
+
+def no_registrado(request):
+	context = {}
+	return render(request, "noRegistrado.html", context)
 
 def register(request):
 	context = {}
@@ -70,6 +73,8 @@ def register_eg(request):
 		career = form_data.get("career")
 		graduation = form_data.get("graduation")
 		egresado = Egresado.objects.create(user=user, country=country, career=career, graduation=graduation)
+		grupo_egresado = Group.objects.get(name='Egresados')
+		user.groups.add(grupo_egresado)
 		print "User"
 		print identification, password, email, first_name, second_name, last_name, second_last_name, gender
 		print "Egresado"
@@ -115,6 +120,8 @@ def register_admin(request):
 		form_data = ad_form.cleaned_data
 		address = form_data.get("address") 
 		admin = Admin.objects.create(user=user, address=address)
+		grupo_administradores = Group.objects.get(name='Egresados')
+		user.groups.add(grupo_administradores)
 		print "User"
 		print identification, password, email, first_name, second_name, last_name, second_last_name, gender
 		print "Admin"
