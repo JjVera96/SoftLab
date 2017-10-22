@@ -4,4 +4,4 @@ Scripts/
 tcl/
 pip-selfcheck.json
 *.pyc
-app/migrations/
+plat_egresados/app/migrations/
