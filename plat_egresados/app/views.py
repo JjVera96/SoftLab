@@ -11,6 +11,7 @@ from .models import User, Egresado, Admin
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import Group
+from .models import User
 
 valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -65,8 +66,7 @@ def register_graduated(request):
 		last_name = form_data.get("last_name")
 		second_last_name = form_data.get("second_last_name")
 		gender = form_data.get("gender")
-		#password = password.join([choice(valores) for i in range(8)])
-		password = "h6gn5mvzx"
+		password = password.join([choice(valores) for i in range(8)])
 		print password
 		password = make_password(password, salt=None, hasher='default')
 		user = User.objects.create(username=username, password=password, email=email, first_name=first_name, second_name=second_name, last_name=last_name, second_last_name=second_last_name, gender=gender, is_graduated=True)
@@ -77,18 +77,6 @@ def register_graduated(request):
 		egresado = Egresado.objects.create(user=user, country=country, career=career, graduation=graduation)
 		grupo_egresado = Group.objects.get(name='Egresados')
 		user.groups.add(grupo_egresado)
-		print "User"
-		print username, password, email, first_name, second_name, last_name, second_last_name, gender
-		print "Egresado"
-		print user, country, career, graduation
-
-#		send_mail(
-#			'Registro Plataforma Egresados UTP',
-#	   		"Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, passw),
-#	 		settings.EMAIL_HOST_USER,
-#			[email],
-#			fail_silently=False,
-#		)
 
 		context = {
 			"InfoCorreo" : "Te enviaremos un correo a {} con tu contraseña de ingreso cuando seas activado".format(email),
@@ -115,8 +103,7 @@ def register_admin(request):
 		last_name = form_data.get("last_name")
 		second_last_name = form_data.get("second_last_name")
 		gender = form_data.get("gender")
-		#password = password.join([choice(valores) for i in range(8)])
-		password = "h6gn5mvzx"
+		password = password.join([choice(valores) for i in range(8)])
 		password = make_password(password, salt=None, hasher='default')
 		user = User.objects.create(username=username, password=password, email=email, first_name=first_name, second_name=second_name, last_name=last_name, second_last_name=second_last_name, gender=gender, is_admin=True)
 		form_data = ad_form.cleaned_data
@@ -124,17 +111,6 @@ def register_admin(request):
 		admin = Admin.objects.create(user=user, address=address)
 		grupo_administradores = Group.objects.get(name='Administradores')
 		user.groups.add(grupo_administradores)
-		print "User"
-		print username, password, email, first_name, second_name, last_name, second_last_name, gender
-		print "Admin"
-		print user, address
-#		send_mail(
-#			'Registro Plataforma Egresados UTP',
-#	   		"Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, passw),
-#	 		settings.EMAIL_HOST_USER,
-#			[email],
-#			fail_silently=False,
-#		)
 
 		context = {
 			"InfoCorreo" : "Te enviaremos un correo a {} con tu contraseña de ingreso cuando seas activado".format(email),
@@ -160,3 +136,22 @@ def index_graduated(request):
 
 def index_admin(request):
 	return render(request, "index_admin.html", {})
+
+def active_graduated(request):
+	users = User.objects.all().filter(is_active=False, is_graduated=True)
+	for user in users:
+		print user
+	context = {
+		"users" : users
+	}
+	return render(request, "activate_graduated.html", context)
+
+
+def send_email(email, first_name, last_name, password):
+	send_mail(
+			'Registro Plataforma Egresados UTP',
+	   		"Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, password),
+	 		settings.EMAIL_HOST_USER,
+			[email],
+			fail_silently=False,
+		)

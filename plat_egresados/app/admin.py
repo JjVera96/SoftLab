@@ -7,13 +7,23 @@ from django.contrib import admin
 from .models import Egresado, Admin, Categoria
 
 class Admin_Admin(admin.ModelAdmin):
-	list_display = ["user", "address", "get_active"]
+	list_display = ["usuario", "nombre" , "domicilio", "estado"]
 
 	class Meta:
 		model = Admin
 
-	def get_active(self, obj):
+	def estado(self, obj):
 		return obj.user.is_active
+
+	def nombre(self, obj):
+		return obj.user.get_full_name()
+
+	def domicilio(self, obj):
+		return obj.address
+
+	def usuario(self, obj):
+		return obj.user
+
 
 admin.site.register(Egresado)
 admin.site.register(Admin, Admin_Admin)

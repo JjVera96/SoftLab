@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^profile_graduated$', views.index_graduated, name='index_graduated'),
     url(r'^profile_admin$', views.index_admin, name='index_admin'),
+    url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
 ]
 
 if settings.DEBUG:

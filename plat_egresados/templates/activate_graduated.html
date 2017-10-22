@@ -9,9 +9,18 @@
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
   </head>
   <body>
-  	<h1>Pagina Principal Admin</h1>
-    <button><a href="{% url 'active_graduated' %}">Activar Egresado</a></button>
-    <button><a href="{% url 'logout' %}">Cerrar Sesion</a></button>
+  	<h1>Activar Egresados</h1>
+    {% for user in users %}
+    {{ user.username }}
+    {{ user.email }}
+    {{ user.first_name }}
+    {{ user.second_name }}
+    {{ user.last_name }}
+    {{ user.second_last_name }}
+    {{ user.gender }}
+    <button>Aceptar</button>
+    <button>Rechazar</button><br>
+    {% endfor %}
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
