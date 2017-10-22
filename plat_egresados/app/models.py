@@ -10,7 +10,7 @@ from .managers import UserManager
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
-	identification = models.CharField(_('identification'), primary_key=True, max_length=30, unique=True)
+	username = models.CharField(_('username'), primary_key=True, max_length=30, unique=True)
 	email = models.EmailField(_('email address'))
 	first_name = models.CharField(_('first name'), max_length=30)
 	second_name = models.CharField(_('second name'), max_length=30, blank=True)
@@ -25,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	
 	objects = UserManager()
 
-	USERNAME_FIELD = 'identification'
+	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = []
 
 	class Meta:

@@ -4,7 +4,7 @@ from .models import User, Egresado, Admin
 class User_Form(forms.ModelForm):
 	class Meta:
 		model = User
-		fields = ["identification", "email", "first_name", "second_name", "last_name", "second_last_name", "gender"]
+		fields = ["username", "email", "first_name", "second_name", "last_name", "second_last_name", "gender"]
 
 	def clean_email(self):
 		email = self.cleaned_data.get("email")

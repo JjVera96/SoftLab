@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Egresados UTP</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
+</head>
+<body>
+	<h1>Administrador</h1>
+	{{InfoCorreo}}
+	<br>
+	{{InfoGracias}}
+	{% if ad_form and user_form %}
+	<form method="POST" action="">{% csrf_token %}
+	<input type="text" name="username" placeholder="Codigo" required="True"><br>
+	<input type="text" name="email"  placeholder="Correo" required="True"><br>
+	<input type="text" name="first_name"  placeholder="Primer Nombre" required="True">
+	<input type="text" name="second_name"  placeholder="Segundo Nombre" required="False"><br>
+	<input type="text" name="last_name"  placeholder="Primer Apellido" required="True">
+	<input type="text" name="second_last_name"  placeholder="Segundo Apellido" required="True"><br>
+	<input type="text" name="gender"  placeholder="Genero" required="True"><br>
+	<input type="text" name="address" placeholder="Dirección" required="True"><br>
+	<input type="submit" name="Registrame">
+	</form>
+	{{ user_form.errors }}
+	{{ ad_form.errors }}
+	{% endif %}
+</form>
+</body>
+</html>

@@ -23,12 +23,13 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login$', views.view_login, name='login'),
     url(r'^logout$', views.view_logout, name='logout'),
-    url(r'^noRegistrado$', views.no_registrado, name='no_registrado'),
-    url(r'^registrar$', views.register, name='registrar'),
-    url(r'^registrarEgresado$', views.register_eg, name='registrar_egresado'),
-    url(r'^registrarAdmon$', views.register_admin, name='registrar_admin'),
+    url(r'^no_registred$', views.no_registred, name='no_registred'),
+    url(r'^register$', views.register, name='register'),
+    url(r'^register_graduated$', views.register_graduated, name='register_graduated'),
+    url(r'^register_admin$', views.register_admin, name='register_admin'),
     url(r'^$', views.index, name='index'),
-
+    url(r'^profile_graduated$', views.index_graduated, name='index_graduated'),
+    url(r'^profile_admin$', views.index_admin, name='index_admin'),
 ]
 
 if settings.DEBUG:
