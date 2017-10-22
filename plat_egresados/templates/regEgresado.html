@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
-    <link href=".../.../static_pro/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
-<body>
+<body id="particles-js">
 	<h1>Egresado</h1>
 	{{InfoCorreo}}
 	<br>
@@ -17,9 +17,9 @@
 	{% if eg_form and user_form %}
 	<form method="POST" action="">{% csrf_token %}
 	  <div class="form-row">
-	  	<label>Identificación</label><br>
-	  	<input type="text" name="identification" placeholder="Codigo" required="True">
 	    <div class="form-group col-md-6">
+	    <label for="inputEmail4">Identificación</label><br>
+	  	<input type="text" name="identification" class="form-control" id="inputEmail4" placeholder="Codigo" required="True">
 	      <label for="inputEmail4">Correo</label>
 	      <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Correo" required="True">
 	    </div>
@@ -34,11 +34,12 @@
 	      <input type="text" name="second_last_name" class="form-control" id="inputPassword4" placeholder="Segundo Apellido" required="True">
 	    </div>
 	  </div>
+	  <script src="{% static 'js/particles.js' %}"></script>
+	  <script src="{% static 'js/app.js' %}"></script>
 	  <div class="form-row">
 	    <div class="form-group col-md-4">
 	      <label for="inputState">País</label>
 	      <select id="inputState" name="country" class="form-control">
-	        <option selected>Colombia</option>
 	        <option value="AF">Afganistán</option>
 			<option value="AL">Albania</option>
 			<option value="DE">Alemania</option>
@@ -84,6 +85,7 @@
 			<option value="CN">China</option>
 			<option value="CY">Chipre</option>
 			<option value="VA">Ciudad del Vaticano (Santa Sede)</option>
+			<option selected>Colombia</option>
 			<option value="KM">Comores</option>
 			<option value="CG">Congo</option>
 			<option value="CD">Congo, República Democrática del</option>
@@ -102,7 +104,7 @@
 			<option value="AE">Emiratos Árabes Unidos</option>
 			<option value="ER">Eritrea</option>
 			<option value="SI">Eslovenia</option>
-			<option value="ES" selected>España</option>
+			<option value="ES">España</option>
 			<option value="US">Estados Unidos</option>
 			<option value="EE">Estonia</option>
 			<option value="ET">Etiopía</option>
@@ -273,6 +275,7 @@
 			<option value="ZM">Zambia</option>
 			<option value="ZW">Zimbabue</option>
 	      </select>
+	      <label for="inputState">Género</label>
 	      <select id="inputgender" name="gender" class="form-control">
 	       <option>Femenino</option>
 	       <option>Masculino</option>
@@ -294,6 +297,7 @@
 {{ user_form.errors }}
 	{{ eg_form.errors }}
 	{% endif %} 
+
 
 
 </body>
