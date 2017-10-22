@@ -4,4 +4,4 @@ Scripts/
 tcl/
 pip-selfcheck.json
 *.pyc
-app/migrations
+app/migrations/
