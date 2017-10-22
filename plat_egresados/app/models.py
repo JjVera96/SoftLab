@@ -63,3 +63,13 @@ class Admin(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.user)
+
+class Categoria(models.Model):
+	class Meta:
+		verbose_name = _('Categoria')
+		verbose_name_plural = _('Categorias')
+
+	name = models.CharField(_('name'), max_length=50, unique=True)
+
+	def __unicode__(self):
+		return unicode(self.name)
