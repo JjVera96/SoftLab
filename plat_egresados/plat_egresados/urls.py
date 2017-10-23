@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^logout$', views.view_logout, name='logout'),
     url(r'^no_registred$', views.no_registred, name='no_registred'),
     url(r'^register$', views.register, name='register'),
+    url(r'^forget_account$', views.forget_account, name='forget_account'),
     url(r'^register_graduated$', views.register_graduated, name='register_graduated'),
     url(r'^register_admin$', views.register_admin, name='register_admin'),
     url(r'^$', views.index, name='index'),

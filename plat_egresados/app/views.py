@@ -40,6 +40,9 @@ def view_logout(request):
 	logout(request)
 	return render(request, "logout.html", {})
 
+def forget_account(request):
+	return render(request, "forget_account", {})
+
 def no_registred(request):
 	context = {}
 	return render(request, "no_registred.html", context)
@@ -147,11 +150,15 @@ def active_graduated(request):
 	return render(request, "activate_graduated.html", context)
 
 
-def send_email(email, first_name, last_name, password):
+def send_email(format, email, first_name, last_name, password):
+	if format == 0:
+		title = 'Registro Plataforma Egresados UTP'
+		body = "Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, password)
+	else:
+		title = "Recuperacion Contraseña Plataforma Egresados UTP"
+		body = "Hola {} {}\nTu nueva contraseña de ingreso es {}".format(first_name, last_name, password)
 	send_mail(
-			'Registro Plataforma Egresados UTP',
-	   		"Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, password),
-	 		settings.EMAIL_HOST_USER,
-			[email],
-			fail_silently=False,
-		)
+	 	settings.EMAIL_HOST_USER,
+		[email],
+		fail_silently=False,
+	)
