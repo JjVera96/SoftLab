@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login$', views.view_login, name='login'),
+    url(r'^first_entrance/(?P<id_user>\d+)$', views.first_entrance, name='first_entrance'),
     url(r'^logout$', views.view_logout, name='logout'),
     url(r'^no_registred$', views.no_registred, name='no_registred'),
     url(r'^register$', views.register, name='register'),
@@ -32,6 +33,8 @@ urlpatterns = [
     url(r'^profile_graduated$', views.index_graduated, name='index_graduated'),
     url(r'^profile_admin$', views.index_admin, name='index_admin'),
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
+    url(r'^activate_admin$', views.active_admin, name='active_admin'),
+    url(r'^activate_user/(?P<id_user>\d+)$', views.activate_user, name='activate_user'),
 ]
 
 if settings.DEBUG:

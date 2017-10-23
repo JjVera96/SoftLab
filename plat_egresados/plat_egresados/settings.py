@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 #EMAIL
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "egresadosutp2017@gmail.com"
-EMAIL_HOST_PASSWORD = "-----------"
+EMAIL_HOST_PASSWORD = "swokoskylab2017"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
