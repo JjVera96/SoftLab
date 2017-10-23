@@ -10,13 +10,13 @@ from .managers import UserManager
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
-	username = models.CharField(_('username'), primary_key=True, max_length=30, unique=True)
+	username = models.CharField(_('username'), primary_key=True, max_length=50, unique=True)
 	email = models.EmailField(_('email address'))
-	first_name = models.CharField(_('first name'), max_length=30)
-	second_name = models.CharField(_('second name'), max_length=30, blank=True)
-	last_name = models.CharField(_('first last name'), max_length=30)
-	second_last_name = models.CharField(_('second last name'), max_length=30)
-	gender = models.CharField(_('gender'), max_length=30)
+	first_name = models.CharField(_('first name'), max_length=50)
+	second_name = models.CharField(_('second name'), max_length=50, blank=True)
+	last_name = models.CharField(_('first last name'), max_length=50)
+	second_last_name = models.CharField(_('second last name'), max_length=50)
+	gender = models.CharField(_('gender'), max_length=50)
 	date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
 	is_staff = models.BooleanField(_('is_staff'), default=False)	
 	is_active = models.BooleanField(_('is_active'), default=False)
@@ -26,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	objects = UserManager()
 
 	USERNAME_FIELD = 'username'
-	REQUIRED_FIELDS = []
+	REQUIRED_FIELDS = ["email"]
 
 	class Meta:
 		verbose_name = _('user')
@@ -46,8 +46,8 @@ class Egresado(models.Model):
 		verbose_name_plural = _('Egresados')
 	
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	country = models.CharField(_('country'), max_length=30)	
-	career = models.CharField(_('career'), max_length=30)
+	country = models.CharField(_('country'), max_length=50)	
+	career = models.CharField(_('career'), max_length=50)
 	graduation = models.DateTimeField(_('graduation year'))
 
 	def __unicode__(self):

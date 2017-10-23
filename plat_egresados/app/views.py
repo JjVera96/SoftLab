@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from random import choice
-from .forms import User_Form, Egre_Form, Admin_Form, Login_Form
+from .forms import User_Form, Egre_Form, Admin_Form, Login_Form, Forget_Form
 from .models import User, Egresado, Admin
 from django.core.mail import send_mail
 from django.conf import settings
@@ -41,7 +41,39 @@ def view_logout(request):
 	return render(request, "logout.html", {})
 
 def forget_account(request):
-	return render(request, "forget_account", {})
+	forget_form = Forget_Form(request.POST or None)
+	context = {
+		"msg" : "",
+		"forget_form" : forget_form
+	}
+
+	if forget_form.is_valid():
+		password = ""
+		form_data = forget_form.cleaned_data
+		email = form_data.get("email")
+		try:
+			user = User.objects.get(email=email)
+		except User.DoesNotExist:
+			user = None
+		if user is not None:
+			print user
+			if user.is_active == True:
+				password = password.join([choice(valores) for i in range(8)])
+				print user.email, user.first_name, user.last_name, password
+				send_email(1, user.email, user.first_name, user.last_name, password)
+				password = make_password(password, salt=None, hasher='default')
+				user.password = password
+				user.save()
+				msg = "Te hemos enviado un correo con tu nueva contraseña de ingreso. Revisa tu bandeja de entrada"
+			else:
+				msg = "Aun no has sido activado. Espera a que activemos tu cuenta. Paciencia por favor"
+		else:
+			msg = "No hay usuario con este email. Por favor registrate"
+		context = {
+			"msg" : msg
+		}
+			
+	return render(request, "forget_account.html", context)
 
 def no_registred(request):
 	context = {}
@@ -107,6 +139,7 @@ def register_admin(request):
 		second_last_name = form_data.get("second_last_name")
 		gender = form_data.get("gender")
 		password = password.join([choice(valores) for i in range(8)])
+		password = "h6gn5mvzx"
 		password = make_password(password, salt=None, hasher='default')
 		user = User.objects.create(username=username, password=password, email=email, first_name=first_name, second_name=second_name, last_name=last_name, second_last_name=second_last_name, gender=gender, is_admin=True)
 		form_data = ad_form.cleaned_data
@@ -150,14 +183,16 @@ def active_graduated(request):
 	return render(request, "activate_graduated.html", context)
 
 
-def send_email(format, email, first_name, last_name, password):
-	if format == 0:
+def send_email(mode, email, first_name, last_name, password):
+	if mode == 0:
 		title = 'Registro Plataforma Egresados UTP'
 		body = "Genial! Registro Completado\nBienvenido {} {}\nTu contraseña de ingreso es {}".format(first_name, last_name, password)
 	else:
 		title = "Recuperacion Contraseña Plataforma Egresados UTP"
 		body = "Hola {} {}\nTu nueva contraseña de ingreso es {}".format(first_name, last_name, password)
 	send_mail(
+		title,
+		body,
 	 	settings.EMAIL_HOST_USER,
 		[email],
 		fail_silently=False,

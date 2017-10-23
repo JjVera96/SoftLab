@@ -24,5 +24,8 @@ class Admin_Form(forms.ModelForm):
 		fields= ["address"]
 
 class Login_Form(forms.Form):
-	id_user = forms.CharField(max_length= 30)
-	password = forms.CharField(max_length= 30)
+	id_user = forms.CharField(max_length= 50)
+	password = forms.CharField(max_length= 50)
+
+class Forget_Form(forms.Form):
+	email = forms.EmailField(max_length=50)
