@@ -1,0 +1,37 @@
+-body {
+ .egresado{
+  	background-image: url(egresados.jpg);
+  	background-color: black;
+  	background-size:cover;
+  	background-attachment: fixed;
+    	color: white;
+  	text-align: center
+ }
+ 
+ .admin{
+ 	background-image: url(admin.jpg);
+ 	background-size:cover;
+ 	background-attachment: fixed;
+   	color: white;
+ 	text-align: center
+ }
+ 
+ 
+ .register{
+ 	background-image: url(register.jpg);
+ 	background-attachment: fixed;
+ 	color: white;
+ 	background-size: cover;
+ 	text-align: center
+ }
+ 
+ #buttonegre{
+ 	background-color: #15B111;
+ 	color: white; 
+ }
+ 
+ 
+ #buttonadmin{
+ 	color: white;
+ 	background-color: #393AFF 
+ }
