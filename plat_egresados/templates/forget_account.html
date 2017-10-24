@@ -6,17 +6,24 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
   </head>
 </head>
-<body>
+<body class="forget"><br><br>
 	<h1>Plataforma Egresados</h1>
     {{ msg }}
     {% if forget_form %}
-    <form method="POST" action="">{% csrf_token %}
-        <input type="text" name="email" placeholder="Email" required="True">
-        <input type="submit" name="Enviar">
-    </form><br>
+    <form  method="POST" action="" class="form-inline">
+      <div class="form-group mx-sm-3">
+        <label for="inputPassword2" class="sr-only">Correo</label>
+        <input type="text" name="email" class="form-control" id="inputPassword2" placeholder="Correo" required="True">
+      </div>
+      <button type="submit" name="Enviar" class="btn btn-primary">Enviar correo de recuperación</button>
+    </form>
+
+
     {% endif %}
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
