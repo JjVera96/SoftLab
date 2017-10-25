@@ -6,20 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="../static_pro/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static_pro/static/css/styles.css" rel="stylesheet">
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
   </head>
-  <body>
+  <body class="activate_graduated">
   	<h1>Activar Egresados</h1>
-    {% for user in users %}
+    <p>{% for user in users %}
     {{ user.username }}
     {{ user.email }}
     {{ user.first_name }}
     {{ user.second_name }}
     {{ user.last_name }}
     {{ user.second_last_name }}
-    {{ user.gender }}
-    <button>Aceptar</button>
-    <button>Rechazar</button><br>
+    {{ user.gender }}</p>
+    <button type="button" class="btn btn-success">Aceptar</button>
+    <button type="button" class="btn btn-danger">Rechazar</button>
     {% endfor %}
     <!-- Bootstrap core JavaScript
     ================================================== -->
