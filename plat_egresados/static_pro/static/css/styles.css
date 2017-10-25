@@ -84,3 +84,15 @@
 	color: white;
 	font-family: 'Gentium Book Basic', serif;
 }
+
+
+.activate_graduated{
+	background-image: url(activate.png);
+	background-size: cover;
+	background-attachment: fixed;
+	text-align: justify;
+	color: black;
+	margin-left: 10%;
+	margin-top: 43px;
+	font-family: 'Gentium Book Basic', serif;
+}
