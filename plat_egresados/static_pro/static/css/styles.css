@@ -73,3 +73,14 @@
 .logout h1{
 	font-family: 'Galada';
 }
+
+.first_entrance{
+	background-image: url(first_entrance.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	margin-left: 10%;
+	margin-top: 43px;
+	text-align: justify;
+	color: white;
+	font-family: 'Gentium Book Basic', serif;
+}
