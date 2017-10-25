@@ -1,5 +1,3 @@
-
-
 {%load static %}
 <!DOCTYPE html>
 <html>
@@ -8,19 +6,22 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="../static_pro/static/css/styles.css" rel="stylesheet">
+    <link href="../static_pro/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
   </head>
 </head>
-<body>
-	<body>
+<body class="first_entrance">
     <h1>Primera entrada</h1>
-    <p>Como es tu primera entrada por favor cambia tu contraseña</p>
+    <h4>Como es tu primera entrada por favor cambia tu contraseña</h4>
     {{ msg }}
     {% if password_form %}
     <form method="POST">{% csrf_token %}
     	<input type="password" name="password" placeholder="Contraseña" required="True">
     	<input type="password" name="again" placeholder="Confirme su contraseña" required="True">
-    	<button type="submit" name="Registrame" class="btn btn-primary">Registrame</button>
+        <button type="submit" name="Registrame" class="btn btn-success">Aceptar</button>
     </form>
     {% endif %}
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
