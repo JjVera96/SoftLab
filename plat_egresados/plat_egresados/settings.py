@@ -25,12 +25,12 @@ SECRET_KEY = '^s9*g9d78hz!5zb@8qqw2anvyt2xz_u*z#_*v@q4(_w+5q5z$7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #EMAIL
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "egresadosutp2017@gmail.com"
-EMAIL_HOST_PASSWORD = "swokoskylab2017"
+EMAIL_HOST_PASSWORD = "h6gn5mvzx"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

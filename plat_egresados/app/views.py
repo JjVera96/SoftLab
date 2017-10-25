@@ -17,37 +17,41 @@ valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 # Create your views here.
 def view_login(request):
-	login_form = Login_Form(request.POST or None)
-	msg = ""
-	if login_form.is_valid():
-		form_data = login_form.cleaned_data
-		id_user = form_data.get("id_user")
-		password = form_data.get("password")
-		try:
-			user = User.objects.get(username=id_user)
-		except User.DoesNotExist:
-			user = None
-		if user is not None:
-			if user.is_active == True:
-				acceso = authenticate(username=id_user, password=password)
-				if acceso is not None:
-					user = User.objects.get(username=id_user)
-					if user.last_login == None:
-						return HttpResponseRedirect("/first_entrance/"+id_user)
+	if request.user.is_anonymous():
+		login_form = Login_Form(request.POST or None)
+		msg = ""
+		if login_form.is_valid():
+			form_data = login_form.cleaned_data
+			id_user = form_data.get("id_user")
+			password = form_data.get("password")
+			try:
+				user = User.objects.get(username=id_user)
+			except User.DoesNotExist:
+				user = None
+			if user is not None:
+				if user.is_active == True:
+					acceso = authenticate(username=id_user, password=password)
+					if acceso is not None:
+						user = User.objects.get(username=id_user)
+						if user.last_login == None:
+							return HttpResponseRedirect("/first_entrance/"+id_user)
+						else:
+							login(request, acceso)
+							return HttpResponseRedirect("/")
 					else:
-						login(request, acceso)
-						return HttpResponseRedirect("/")
+						msg = "Contraseña Incorrecta"
 				else:
-					msg = "Contraseña Incorrecta"
+					msg = "No estas activo"
 			else:
-				msg = "No estas activo"
-		else:
-			return HttpResponseRedirect("/no_registred")
-	context = {
-		"login_form" : login_form,
-		"msg" : msg
-	}
-	return render(request, "login.html", context)
+				return HttpResponseRedirect("/no_registred")
+		context = {
+			"login_form" : login_form,
+			"msg" : msg
+		}
+		return render(request, "login.html", context)
+	else:
+		return HttpResponseRedirect("/")
+
 
 def first_entrance(request, id_user):
 	try:
@@ -193,13 +197,16 @@ def index(request):
 	elif request.user.is_admin:
 		return HttpResponseRedirect('/profile_admin')
 	else:
-		return HttpResponseRedirect('/admin')
+		return HttpResponseRedirect('/profile_root')
 
 def index_graduated(request):
 	return render(request, "index_graduated.html", {})
 
 def index_admin(request):
 	return render(request, "index_admin.html", {})
+
+def index_root(request):
+	return render(request, "index_root.html", {})
 
 def active_graduated(request):
 	users = User.objects.all().filter(is_active=False, is_graduated=True)
@@ -216,15 +223,21 @@ def active_admin(request):
 	return render(request, "activate_users.html", context)
 
 def activate_user(request, id_user):
-	if request.user.is_admin or request.user.is_staff:
-		user = User.objects.get(username=id_user)
-		user.is_active = True
-		user.save()
-		send_password(0, user)
-		if request.user.is_admin:
-			return HttpResponseRedirect('/activate_graduated')
-		elif request.user.is_staff:
-			return HttpResponseRedirect('/activate_admin')
+	if not request.user.is_anonymous:
+		if request.user.is_admin or request.user.is_staff:
+			user = User.objects.get(username=id_user)
+			user.is_active = True
+			user.save()
+			send_password(0, user)
+			if request.user.is_admin:
+				return HttpResponseRedirect('/activate_graduated')
+			elif request.user.is_staff:
+				return HttpResponseRedirect('/activate_admin')
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
 
 def delete_user(request, id_user):
 	if request.user.is_admin or request.user.is_staff:

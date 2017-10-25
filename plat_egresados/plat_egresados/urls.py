@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^profile_graduated$', views.index_graduated, name='index_graduated'),
     url(r'^profile_admin$', views.index_admin, name='index_admin'),
+    url(r'^profile_root$', views.index_root, name='index_root'),
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
     url(r'^activate_admin$', views.active_admin, name='active_admin'),
     url(r'^activate_user/(?P<id_user>\d+)$', views.activate_user, name='activate_user'),

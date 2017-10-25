@@ -15,7 +15,7 @@
 	<h1>Plataforma Egresados</h1>
     {{ msg }}
     {% if forget_form %}
-    <form  method="POST" action="" class="form-inline">
+    <form  method="POST" action="" class="form-inline">{% csrf_token %}
       <div class="form-group mx-sm-3">
         <label for="inputPassword2" class="sr-only">Correo</label>
         <input type="text" name="email" class="form-control" id="inputPassword2" placeholder="Correo" required="True">

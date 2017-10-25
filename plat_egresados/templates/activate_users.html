@@ -9,7 +9,7 @@
     <link href="{% static 'navbar-top.css' %}" rel="stylesheet">
   </head>
   <body>
-  	<h1>Activar Usuarios Nuevos</h1>
+  	<h1>Activar {{type}}</h1>
     {% for user in users %}
     {{ user.username }}
     {{ user.email }}

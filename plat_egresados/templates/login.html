@@ -28,12 +28,12 @@
                     <p class="form-title">
                         Plataforma Egresados</p>
                     <form class="login" method="POST" action="">{% csrf_token %}
-                    <input type="text" name="id_user" placeholder="Correo" />
+                    <input type="text" name="id_user" placeholder="Codigo" />
                     <input type="password" name="password" placeholder="Contraseña" />
                     <input type="submit" class="btn btn-success" name="Ingresar" value="Ingresar" class="btn btn-success btn-sm" />
                         <div class="row">
                             <div class="col-md-6 forgot-pass-content">
-                                {{ msg }}
+                                <br>{{ msg }}
                                 <a href="{% url 'register' %}" class="btn btn-outline-warning">Registrarme</a>
                                 <a href="{% url 'forget_account' %}" class="btn btn-outline-danger">Olvidé mi contraseña</a>
                             </div>
