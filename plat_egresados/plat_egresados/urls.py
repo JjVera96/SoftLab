@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
     url(r'^activate_admin$', views.active_admin, name='active_admin'),
     url(r'^activate_user/(?P<id_user>\d+)$', views.activate_user, name='activate_user'),
+    url(r'^delete_user/(?P<id_user>\d+)$', views.delete_user, name='delete_user'),
 ]
 
 if settings.DEBUG:

@@ -131,6 +131,7 @@ def register_graduated(request):
 		"user_form" : user_form,
 		"eg_form" : eg_form,
 	}
+	print "Hola"
 	if eg_form.is_valid() and user_form.is_valid():	
 		form_data = user_form.cleaned_data
 		username = form_data.get("username")
@@ -212,28 +213,34 @@ def index_root(request):
 
 def active_graduated(request):
 	users = User.objects.all().filter(is_active=False, is_graduated=True)
+	mode = True
 	if not len(users):
 		msg = "No hay Egresados para activar"
+		mode = False
 	else:
 		msg = ""
 	context = {
 		"type": "Egresados",
 		"msg": msg,
-		"users" : users
+		"users" : users,
+		"mode" : mode,
 	}
 	return render(request, "activate_users.html", context)
 
 def active_admin(request):
 	users = User.objects.all().filter(is_active=False, is_admin=True)
 	print len(users)
+	mode = True
 	if not len(users):
-		msg = "No hay Administradores para activar"
+		msg = "No hay Administradores para activar",
+		mode = False
 	else:
 		msg = ""
 	context = {
 		"type": "Administradores",
 		"msg": msg,
-		"users" : users
+		"users" : users,
+		"mode" : mode,
 	}
 	return render(request, "activate_users.html", context)
 

@@ -8,22 +8,22 @@
 	<center>
 	<form method="POST" action=""> {% csrf_token %}
 	<label for="inputEmail4">Identificación</label>
-	<input type="text" name="username" class="form-control" id="inputEmail4" placeholder="Codigo" required="True">
+	<input type="text" name="username" class="form-control" placeholder="Codigo" required="True">
 	{{ user_form.errors.username }}
 	<label for="inputEmail4">Correo</label>
-	<input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Correo" required="True">
+	<input type="email" name="email" class="form-control" placeholder="Correo" required="True">
 	{{ user_form.errors.email }}
 	<label>Primer Nombre</label>
-	<input type="text" name="first_name" class="form-control" id="inputPassword4" placeholder="Primer Nombre" required="True">
+	<input type="text" name="first_name" class="form-control" placeholder="Primer Nombre" required="True">
 	{{ user_form.errors.first_name }}
 	<label>Segundo Nombre</label>
-	<input type="text" name="second_name" class="form-control" id="inputPassword4" placeholder="Segundo Nombre">
+	<input type="text" name="second_name" class="form-control" placeholder="Segundo Nombre">
 	{{ user_form.errors.second_name }}
 	<label>Primer Apellido</label>
-	<input type="text" name="last_name" class="form-control" id="inputPassword4" placeholder="Primer Apellido" required="True">
+	<input type="text" name="last_name" class="form-control" placeholder="Primer Apellido" required="True">
 	{{ user_form.errors.last_name }}
 	<label>Segundo Apellido</label>
-	<input type="text" name="second_last_name" class="form-control" id="inputPassword4" placeholder="Segundo Apellido" required="True">
+	<input type="text" name="second_last_name" class="form-control" placeholder="Segundo Apellido" required="True">
 	{{ user_form.errors.second_last_name }}
 	<label for="inputState">Género</label>
 	<select id="inputgender" name="gender" class="form-control">
@@ -33,10 +33,10 @@
 	</select>
 	{{ user_form.errors.gender }}
 	<label for="inputAddress">Dirección</label>
-	<input type="text" name="address" class="form-control" id="inputAddress" placeholder="Carrera 3 # 43-58, Barrio Alamos">
+	<input type="text" name="address" class="form-control" placeholder="Carrera 3 # 43-58, Barrio Alamos">
 	{{ ad_form.errors.address }}
 	<label for="inputCity">Ciudad</label>
-	<input type="text" name="city" class="form-control" id="inputCity">
+	<input type="text" name="city" class="form-control" >
 	{{ ad_form.errors.city }}
 	<br><button type="submit" name="Registrame" class="btn btn-primary">Registrame</button>
 	</form>

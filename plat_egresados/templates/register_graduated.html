@@ -3,21 +3,22 @@
 {% block title_content %}Registrate Egresado{% endblock %}
 {% block sub_title_content %}{{InfoCorreo}}<br>{{InfoGracias}}{% endblock %}
 {% block content %}
+<div class="container">
 {% if eg_form and user_form %}
 <center>
-<div class="container">
+<form method="POST" action=""> {% csrf_token %}
 <label for="inputEmail4">Identificación</label>
-<input type="number" name="username" class="form-control" id="inputEmail4" placeholder="Codigo" required="True">
+<input type="number" name="username" class="form-control"  placeholder="Codigo" required="True">
 <label for="inputEmail4">Correo</label>
-<input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Correo" required="True">
+<input type="email" name="email" class="form-control"  placeholder="Correo" required="True">
 <label>Primer Nombre</label>
-<input type="text" name="first_name" class="form-control" id="inputPassword4" placeholder="Primer Nombre" required="True">
+<input type="text" name="first_name" class="form-control"  placeholder="Primer Nombre" required="True">
 <label>Segundo Nombre</label>
-<input type="text" name="second_name" class="form-control" id="inputPassword4" placeholder="Segundo Nombre">
+<input type="text" name="second_name" class="form-control"  placeholder="Segundo Nombre">
 <label>Primer Apellido</label>
-<input type="text" name="last_name" class="form-control" id="inputPassword4" placeholder="Primer Apellido" required="True">
+<input type="text" name="last_name" class="form-control"  placeholder="Primer Apellido" required="True">
 <label>Segundo Apellido</label>
-<input type="text" name="second_last_name" class="form-control" id="inputPassword4" placeholder="Segundo Apellido" required="True">
+<input type="text" name="second_last_name" class="form-control"  placeholder="Segundo Apellido" required="True">
 <label for="inputState">País</label>
 <select id="inputState" name="country" class="form-control">
 <option value="AF">Afganistán</option>
@@ -256,13 +257,13 @@
 <option value="ZW">Zimbabue</option>
 </select>
 <label for="inputState">Género</label>
-<select id="inputgender" name="gender" class="form-control">
+<select  name="gender" class="form-control">
 <option>Femenino</option>
 <option>Masculino</option>
 <option>Otro</option>
 </select>
 <label for="inputCareer">Carrera</label>
-<select type="text" name="career" class="form-control" id="inputCareer" placeholder="Carrera Pregrado">
+<select type="text" name="career" class="form-control" placeholder="Carrera Pregrado">
 <option>Ingeniería Industrial</option>
 <option>Ingeniería Mecánica</option>
 <option>Ingeniería Eléctrica</option>
@@ -290,13 +291,14 @@
 <option>Técnico Profesional en Procesos del Turismo</option> 	
 </select>
 <label for="inputdate">Fecha Graduación</label>
-<input type="date" name="graduation" class="form-control" id="inputdate" placeholder="Fecha Graduación">
+<input type="date" name="graduation" class="form-control" placeholder="Fecha Graduación">
 <label for="inputdate">Fecha de Nacimiento</label>
-<input type="date" name="birthdate" class="form-control" id="inputdate" placeholder="Fecha Graduación">
+<input type="date" name="birthdate" class="form-control" placeholder="Fecha Graduación">
 {{ user_form.errors }}
 {{ eg_form.errors }}
 <br><button type="submit" name="Registrame" class="btn btn-primary">Registrame</button>
 </form>
 </center>
 {% endif %} 
+</div>
 {% endblock %}

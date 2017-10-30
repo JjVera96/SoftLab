@@ -5,16 +5,15 @@
 {% block content %}
 <div class="container">
 {{ msg }}
-{% for user in users %}
-{{ user.username }}
-{{ user.email }}
-{{ user.first_name }}
-{{ user.second_name }}
-{{ user.last_name }}
-{{ user.second_last_name }}
-{{ user.gender }}
-<button><a href="/activate_user/{{user.username}}">Aceptar</a></button>
-<button><a href="">Rechazar</a></button><br>
-{% endfor %}
+{% if mode %}
+	{% for user in users %}
+	{{ user.username }}
+	{{ user.email }}
+	{{ user.first_name }}
+	{{ user.last_name }}
+	<button class="btn btn-outline-warning"><a href="/activate_user/{{user.username}}">Aceptar</a></button>
+	<button class="btn btn-outline-danger"><a href="/delete_user/{{user.username}}">Rechazar</a></button><br>
+	{% endfor %}
+{% endif %}
 </div>
 {% endblock %}
