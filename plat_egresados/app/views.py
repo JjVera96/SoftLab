@@ -146,7 +146,8 @@ def register_graduated(request):
 		country = form_data.get("country") 
 		career = form_data.get("career")
 		graduation = form_data.get("graduation")
-		egresado = Egresado.objects.create(user=user, country=country, career=career, graduation=graduation)
+		birthdate = form_data.get("birthdate")
+		egresado = Egresado.objects.create(user=user, country=country, career=career, graduation=graduation, birthdate=birthdate)
 		#grupo_egresado = Group.objects.get(name='Egresados')
 		#user.groups.add(grupo_egresado)
 
@@ -178,7 +179,8 @@ def register_admin(request):
 		user = User.objects.create(username=username, password=password, email=email, first_name=first_name, second_name=second_name, last_name=last_name, second_last_name=second_last_name, gender=gender, is_admin=True)
 		form_data = ad_form.cleaned_data
 		address = form_data.get("address") 
-		admin = Admin.objects.create(user=user, address=address)
+		city= form_data.get("city")
+		admin = Admin.objects.create(user=user, address=address, city=city)
 		#grupo_administradores = Group.objects.get(name='Administradores')
 		#user.groups.add(grupo_administradores)
 
@@ -191,7 +193,7 @@ def register_admin(request):
 
 def index(request):
 	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login')
+		return render(request, "base.html")
 	elif request.user.is_graduated:
 		return HttpResponseRedirect('/profile_graduated')
 	elif request.user.is_admin:
@@ -210,14 +212,27 @@ def index_root(request):
 
 def active_graduated(request):
 	users = User.objects.all().filter(is_active=False, is_graduated=True)
+	if not len(users):
+		msg = "No hay Egresados para activar"
+	else:
+		msg = ""
 	context = {
+		"type": "Egresados",
+		"msg": msg,
 		"users" : users
 	}
 	return render(request, "activate_users.html", context)
 
 def active_admin(request):
 	users = User.objects.all().filter(is_active=False, is_admin=True)
+	print len(users)
+	if not len(users):
+		msg = "No hay Administradores para activar"
+	else:
+		msg = ""
 	context = {
+		"type": "Administradores",
+		"msg": msg,
 		"users" : users
 	}
 	return render(request, "activate_users.html", context)

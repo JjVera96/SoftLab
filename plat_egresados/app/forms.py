@@ -16,17 +16,23 @@ class User_Form(forms.ModelForm):
 class Egre_Form(forms.ModelForm):
 	class Meta:
 		model = Egresado
-		fields = ["country", "career", "graduation"]
+		fields = ["country", "career", "graduation", "birthdate"]
 
 class Admin_Form(forms.ModelForm):
 	class Meta:
 		model = Admin
-		fields= ["address"]
+		fields= ["address", "city"]
 
 class Login_Form(forms.Form):
 	id_user = forms.CharField(max_length=50)
 	password = forms.CharField(max_length=50)
 
+	def clean_id_user(self):
+		id_user = self.cleaned_data.get("id_user")
+		if id_user.isdigit() or id_user=="admin":
+			return id_user
+		raise forms.ValidationError("Los codigos son solamente numeros")
+		
 class Forget_Form(forms.Form):
 	email = forms.EmailField(max_length=50)
 

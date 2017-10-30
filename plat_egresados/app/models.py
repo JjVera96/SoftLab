@@ -11,7 +11,7 @@ from .managers import UserManager
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
 	username = models.CharField(_('username'), primary_key=True, max_length=50, unique=True)
-	email = models.EmailField(_('email address'))
+	email = models.EmailField(_('email address'), unique=True)
 	first_name = models.CharField(_('first name'), max_length=50)
 	second_name = models.CharField(_('second name'), max_length=50, blank=True)
 	last_name = models.CharField(_('first last name'), max_length=50)
@@ -45,10 +45,11 @@ class Egresado(models.Model):
 		verbose_name = _('Egresado')
 		verbose_name_plural = _('Egresados')
 	
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	country = models.CharField(_('country'), max_length=50)	
 	career = models.CharField(_('career'), max_length=50)
 	graduation = models.DateTimeField(_('graduation year'))
+	birthdate = models.DateTimeField(_('birthdate'))
 
 	def __unicode__(self):
 		return unicode(self.user)
@@ -58,8 +59,9 @@ class Admin(models.Model):
 		verbose_name = _('Administrador')
 		verbose_name_plural = _('Administradores')
 
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	address = models.CharField(_('address'), max_length=50)
+	city = models.CharField(_('city'), max_length=50)
 
 	def __unicode__(self):
 		return unicode(self.user)
