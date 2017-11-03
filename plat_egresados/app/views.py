@@ -232,7 +232,7 @@ def active_admin(request):
 	print len(users)
 	mode = True
 	if not len(users):
-		msg = "No hay Administradores para activar",
+		msg = "No hay Administradores para activar"
 		mode = False
 	else:
 		msg = ""

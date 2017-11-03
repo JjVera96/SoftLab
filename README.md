@@ -2,18 +2,15 @@
 
 Este repositorio es para el proyecto de Laboratorio de Software UTP
 
-### PYTHON (Django) y MYSQL con (Wamp)
+### PYTHON (Django) y PostgreSQL
 
 Para poder correr el proyecto, primero debemos instalar Python 2.7 y añadirlo al PATH de Windows
 
 https://www.python.org/
 
-http://www.wampserver.com/en/
+Tambien se debe instalar PostgreSQL
 
-Para poder correr bien WampServer se debe instalar 
-visual c++ redistributable for visual studio 2015.
-visual c++ redistributable for visual studio 2013.
-visual c++ redistributable for visual studio 2012.
+https://www.postgresql.org/?&
 
 Despues debemos instalar Pip 
 
@@ -34,5 +31,21 @@ Entramos a la carpeta y activamos en entorno virtual
 Despues luego de esto instalamos Django
 
 pip install django
+
+Despues instalamos el conector de PostgreSQL con Django
+ 
+https://www.lfd.uci.edu/~gohlke/pythonlibs/
+
+Buscamos Psycog y descargamos x32 bits
+
+psycopg2‑2.7.3.2‑cp27‑cp27m‑win32.whl
+
+Y para x64 bits
+
+psycopg2‑2.7.3.2‑cp27‑cp27m‑win_amd64.whl
+
+Lo instalamos 
+
+pip install archivo
 
 Luego de esto clonamos el repo en el entorno virtual y lo ejecutamos 

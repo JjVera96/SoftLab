@@ -82,12 +82,12 @@ WSGI_APPLICATION = 'plat_egresados.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME' : 'egresadosBD',
-        'USER' : 'root',
-        'PASSWORD' : '',
+        'USER' : 'django_windows',
+        'PASSWORD' : ' ',
         'HOST' : 'localhost',
-        'PORT' : '3306',
+        'PORT' : '5432',
     }
 }
 
