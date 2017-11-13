@@ -75,3 +75,13 @@ class Categoria(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.name)
+
+class Noticia(models.Model):
+	class Meta:
+		verbose_name = _('Noticia')
+		verbose_name_plural = _('Noticias')
+
+	title = models.CharField(_('title'), max_length=50)
+	body = models.CharField(_('body'), max_length=2000)
+	media = models.ImageField(_('image'), upload_to='images/')
+	category = models.CharField(_('category'), max_length=50)

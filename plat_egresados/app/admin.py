@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from .models import Egresado, Admin, Categoria, User
+from .models import Egresado, Admin, Categoria, User, Noticia
 
 class Admin_Admin(admin.ModelAdmin):
 	list_display = ["usuario", "nombre" , "domicilio", "estado"]
@@ -28,3 +28,4 @@ admin.site.register(Egresado)
 admin.site.register(Admin, Admin_Admin)
 admin.site.register(Categoria)
 admin.site.register(User)
+admin.site.register(Noticia)

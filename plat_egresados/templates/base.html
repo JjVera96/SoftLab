@@ -27,23 +27,43 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">Egresados UTP</a>
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" class="img-responsive" height="5%" width="10%"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">Inicio</a>
-            </li>
             {% if request.user.is_authenticated %}
+            {% if request.user.is_graduated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile_graduated' %}">Perfil</a>
+            </li>
+            {% endif %}
             {% if request.user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile_root' %}">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create_category' %}">Crear Categoria</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'list_admin' %}">Listar Admins</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'active_admin' %}">Activar Admins</a>
             </li>
             {% endif %}
             {% if request.user.is_admin %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile_admin' %}">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create_notice' %}">Crear Noticia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'list_graduated' %}">Listar Egresados</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'active_graduated' %}">Activar Egresados</a>
             </li>
@@ -52,9 +72,6 @@
               <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion</a>
             </li>
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">Acerca</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">Inicio Sesion</a>
             </li>

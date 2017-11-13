@@ -30,13 +30,19 @@ urlpatterns = [
     url(r'^register_graduated$', views.register_graduated, name='register_graduated'),
     url(r'^register_admin$', views.register_admin, name='register_admin'),
     url(r'^$', views.index, name='index'),
-    url(r'^profile_graduated$', views.index_graduated, name='index_graduated'),
-    url(r'^profile_admin$', views.index_admin, name='index_admin'),
-    url(r'^profile_root$', views.index_root, name='index_root'),
+    url(r'^profile_graduated$', views.profile_graduated, name='profile_graduated'),
+    url(r'^profile_admin$', views.profile_admin, name='profile_admin'),
+    url(r'^profile_root$', views.profile_root, name='profile_root'),
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
     url(r'^activate_admin$', views.active_admin, name='active_admin'),
     url(r'^activate_user/(?P<id_user>\d+)$', views.activate_user, name='activate_user'),
     url(r'^delete_user/(?P<id_user>\d+)$', views.delete_user, name='delete_user'),
+    url(r'^list_graduated$', views.list_graduated, name='list_graduated'),
+    url(r'^list_admin$', views.list_admin, name='list_admin'),
+    url(r'^create_notice$', views.create_notice, name='create_notice'),
+    url(r'^create_category$', views.create_category, name='create_category'),
+    
+
 ]
 
 if settings.DEBUG:

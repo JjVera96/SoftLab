@@ -75,7 +75,7 @@ body {
   -webkit-tap-highlight-color: #0085A1; }
 
 #mainNav {
-  position: absolute;
+  position: fixed;
   border-bottom: 1px solid #eeeeee;
   background-color: white;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }

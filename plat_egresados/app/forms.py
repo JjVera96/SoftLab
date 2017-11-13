@@ -39,3 +39,12 @@ class Forget_Form(forms.Form):
 class New_Password_Form(forms.Form):
 	password = forms.CharField(max_length=50)
 	again = forms.CharField(max_length=50)
+
+class Notice_Form(forms.Form):
+	title = forms.CharField(max_length=50)
+	body = forms.CharField(max_length=50)
+	media = forms.ImageField()
+	category = forms.CharField(max_length=50)
+
+class Category_Form(forms.Form):
+	name = forms.CharField(max_length=50)

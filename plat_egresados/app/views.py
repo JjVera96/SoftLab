@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from random import choice
 from .forms import User_Form, Egre_Form, Admin_Form, Login_Form, Forget_Form, New_Password_Form
-from .models import User, Egresado, Admin
+from .forms import Notice_Form, Category_Form
+from .models import User, Egresado, Admin, Noticia, Categoria
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -195,21 +196,17 @@ def register_admin(request):
 def index(request):
 	if request.user.is_anonymous():
 		return render(request, "base.html")
-	elif request.user.is_graduated:
-		return HttpResponseRedirect('/profile_graduated')
-	elif request.user.is_admin:
-		return HttpResponseRedirect('/profile_admin')
 	else:
-		return HttpResponseRedirect('/profile_root')
+		return render(request, "index.html")
 
-def index_graduated(request):
-	return render(request, "index_graduated.html", {})
+def profile_graduated(request):
+	return render(request, "profile_graduated.html", {})
 
-def index_admin(request):
-	return render(request, "index_admin.html", {})
+def profile_admin(request):
+	return render(request, "profile_admin.html", {})
 
-def index_root(request):
-	return render(request, "index_root.html", {})
+def profile_root(request):
+	return render(request, "profile_root.html", {})
 
 def active_graduated(request):
 	users = User.objects.all().filter(is_active=False, is_graduated=True)
@@ -260,7 +257,6 @@ def activate_user(request, id_user):
 	else:
 		return HttpResponseRedirect('/')
 
-
 def delete_user(request, id_user):
 	if request.user.is_admin or request.user.is_staff:
 		user = User.objects.get(username=id_user)
@@ -269,6 +265,68 @@ def delete_user(request, id_user):
 			return HttpResponseRedirect('/activate_graduated')
 		elif request.user.is_staff:
 			return HttpResponseRedirect('/activate_admin')
+
+def list_graduated(request):
+	users = User.objects.all().filter(is_active=True, is_graduated=True)
+	mode = True
+	if not len(users):
+		msg = "No hay Egresados para listar"
+		mode = False
+	else:
+		msg = ""
+	context = {
+		"type": "Egresados",
+		"msg": msg,
+		"users" : users,
+		"mode" : mode,
+	}
+	return render(request, "list_users.html", context)
+
+def list_admin(request):
+	users = User.objects.all().filter(is_active=True, is_admin=True)
+	mode = True
+	if not len(users):
+		msg = "No hay Administradores para listar"
+		mode = False
+	else:
+		msg = ""
+	context = {
+		"type": "Administradores",
+		"msg": msg,
+		"users" : users,
+		"mode" : mode,
+	}
+	return render(request, "list_users.html", context)
+
+def create_notice(request):
+	notice_form = Notice_Form(request.POST or None, request.FILES or None)
+
+	context = {
+		"notice_form" : notice_form
+	}
+
+	if notice_form.is_valid():
+		form_data = notice_form.cleaned_data
+		title = form_data.get("title")
+		body = form_data.get("body")
+		media = form_data.get("media")
+		category = form_data.get("category")
+		notice = Noticia.objects.create(title=title, body=body, media=media, category=category)
+	return render(request, "notice.html", context)
+
+def create_category(request):
+	category_form = Category_Form(request.POST or None)
+	categories = Categoria.objects.all()
+	context = {
+		"category_form" : category_form,
+		"categories" : categories,
+	}
+
+	if category_form.is_valid():
+		form_data = category_form.cleaned_data
+		name = form_data.get("name")
+		category = Categoria.objects.create(name=name)
+	return render(request, "category.html", context)
 
 ###############################################################################
 #Functions

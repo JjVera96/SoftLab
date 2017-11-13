@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block head_title %}Listar {{type}}{% endblock %}
+{% block title_content %}Listar {{type}}{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+{{ msg }}
+{% if mode %}
+	{% for user in users %}
+	{{ user.username }}
+	{{ user.email }}
+	{{ user.first_name }}
+	{{ user.last_name }}<br>
+	{% endfor %}
+{% endif %}
+</div>
+{% endblock %}

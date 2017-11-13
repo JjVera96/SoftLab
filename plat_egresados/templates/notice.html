@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head_title %}Crear Noticia{{type}}{% endblock %}
+{% block title_content %}Crear Noticia{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+	{% if notice_form %}
+    <form  method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    	<input type="text" name="title" placeholder="Titulo"><br>
+    	<textarea name="body" rows="20" cols="50" placeholder="Escribe aquí la noticia"></textarea><br>
+    	<input type="file" accept=".jpeg, .jpg, .png" name="media"><br>
+    	<input type="text" name="category"><br>
+    	<input type="submit" name="Enviar">
+    	{{notice_forms.errors}}
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
