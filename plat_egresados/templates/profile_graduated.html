@@ -1,8 +1,50 @@
 {% extends "base.html" %}
-{% block head_title %}{{ user.first_name}} {{user.last_name}}{% endblock %}
+{% block head_title %}{{user.first_name}} {{user.last_name}}{% endblock %}
 {% block title_content %}Pagina Principal Egresados{% endblock %}
 {% block sub_title_content %}{% endblock %}
 {% block content %}
-<div class="container">
-</div>
+    <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center">
+        <div class=" container col-xs-12 text-center">
+          <img class="nickname" class="img-rounded"  src="https://www.tuexperto.com/wp-content/uploads/2015/07/perfil_01.jpg" class="img-fluid" alt="img-responsive img-circle">
+        </div>
+        <div class=" container col-xs-12 text-center ">
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+        </div>    
+        <div class=" container col-xs-12 " style="margin:10px auto;">
+            <input type="date" value='{{eg.birthdate|date:"Y-m-d"}}' class="form-control"  placeholder="Fecha" readonly>
+            {{user.first_name}} {{user.second_name}}<br>
+            {{user.last_name}} {{user.second_last_name}}<br>
+            {{eg.country}}<br>
+        </div>
+        <div class=" container col-xs-12 form-control " style="margin:10px; background:#bbfffc">
+            <button class="btn btn-success"><a href="/edit_graduated/{{request.user.username}}">Editar</a></button>
+
+        </div>
+    </div>
+    <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center " style=" width: 580px; height:580ssspx; overflow: scroll; ">
+        <div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default btn-primary">intereses</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default btn-primary">general</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default btn-primary">sugerencias</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center " >Social
+        <div class=" container col-xs-12" style="margin:10px;">
+                <div class="card card-primary">
+                  <div class="card-block">
+                    <h4 class="card-title">Circulos</h4>
+                    <p class="pcard"> Lorem Ipsum</p>                                
+                  </div>
+                </div>
+            </div>
+        
+    </div>
 {% endblock %}

@@ -6,14 +6,15 @@
 <div class="container">
 	{% if category_form %}
     <form  method="POST" action="">{% csrf_token %}
-    	<input type="text" name="name" placeholder="Nombre"><br>
-    	{{category.errors.name}}
-        <input type="submit" name="Enviar">
+    	<input type="text" name="name" placeholder="Nombre">
+    	<button type="submit" name="Enviar" class="btn btn-primary">Guardar</button>
+        {{category.errors.name}}
     </form>
     {% endif %}
     Categorias Existentes<br>
     {% for category in categories %}
-    {{ category }}<br>
+    {{ category.name }}
+    <button class="btn btn-outline-danger"><a href="/delete_category/{{category.id}}">Eliminar</a></button><br>
     {% endfor %}
 </div>
 {% endblock %}

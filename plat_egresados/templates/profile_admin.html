@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 {% block head_title %}{{ user.first_name}} {{user.last_name}}{% endblock %}
-{% block title_content %}Pagina Principal Administradores{% endblock %}
+{% block title_content %}Perfil Administrador{% endblock %}
 {% block sub_title_content %}{% endblock %}
 {% block content %}
 <div class="container">
+	<div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center">
+        <div class=" container col-xs-12 text-center ">
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+        </div>    
+        <div class=" container col-xs-12 " style="margin:10px auto;">
+            {{user.username}}<br>
+            {{user.first_name}} {{user.second_name}}
+            {{user.last_name}} {{user.second_last_name}}
+            {{user.email}}<br>
+            {{user.gender}}
+        </div>
+        <div class=" container col-xs-12 form-control " style="margin:10px; background:#bbfffc">
+            <button class="btn btn-success"><a href="/edit_admin/{{request.user.username}}">Editar</a></button>
+
+        </div>
+    </div>
 </div>
 {% endblock %}

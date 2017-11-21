@@ -12,11 +12,11 @@ from .managers import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
 	username = models.CharField(_('username'), primary_key=True, max_length=50, unique=True)
 	email = models.EmailField(_('email address'), unique=True)
-	first_name = models.CharField(_('first name'), max_length=50)
-	second_name = models.CharField(_('second name'), max_length=50, blank=True)
-	last_name = models.CharField(_('first last name'), max_length=50)
-	second_last_name = models.CharField(_('second last name'), max_length=50)
-	gender = models.CharField(_('gender'), max_length=50)
+	first_name = models.CharField(_('Primer Nombre'), max_length=50)
+	second_name = models.CharField(_('Segundo Nombre'), max_length=50, blank=True)
+	last_name = models.CharField(_('Primer Apellido'), max_length=50)
+	second_last_name = models.CharField(_('Segundo Apellido'), max_length=50)
+	gender = models.CharField(_('Genero'), max_length=50)
 	date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
 	is_staff = models.BooleanField(_('is_staff'), default=False)	
 	is_active = models.BooleanField(_('is_active'), default=False)
@@ -46,10 +46,10 @@ class Egresado(models.Model):
 		verbose_name_plural = _('Egresados')
 	
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-	country = models.CharField(_('country'), max_length=50)	
-	career = models.CharField(_('career'), max_length=50)
-	graduation = models.DateTimeField(_('graduation year'))
-	birthdate = models.DateTimeField(_('birthdate'))
+	country = models.CharField(_('Pais'), max_length=50)	
+	career = models.CharField(_('Carrera'), max_length=50)
+	graduation = models.DateTimeField(_('Año de Graduación'))
+	birthdate = models.DateTimeField(_('Fecha de Cumpleaños'))
 
 	def __unicode__(self):
 		return unicode(self.user)
@@ -60,8 +60,8 @@ class Admin(models.Model):
 		verbose_name_plural = _('Administradores')
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-	address = models.CharField(_('address'), max_length=50)
-	city = models.CharField(_('city'), max_length=50)
+	address = models.CharField(_('Dirección'), max_length=50)
+	city = models.CharField(_('Ciudad'), max_length=50)
 
 	def __unicode__(self):
 		return unicode(self.user)

@@ -20,7 +20,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
     
-    <script src="forms.js"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
 
 
   </head>
@@ -44,9 +44,6 @@
             </li>
             {% endif %}
             {% if request.user.is_staff %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile_root' %}">Perfil</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create_category' %}">Crear Categoria</a>
             </li>

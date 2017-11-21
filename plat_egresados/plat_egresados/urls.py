@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^profile_graduated$', views.profile_graduated, name='profile_graduated'),
     url(r'^profile_admin$', views.profile_admin, name='profile_admin'),
-    url(r'^profile_root$', views.profile_root, name='profile_root'),
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
     url(r'^activate_admin$', views.active_admin, name='active_admin'),
     url(r'^activate_user/(?P<id_user>\d+)$', views.activate_user, name='activate_user'),
@@ -41,8 +40,10 @@ urlpatterns = [
     url(r'^list_admin$', views.list_admin, name='list_admin'),
     url(r'^create_notice$', views.create_notice, name='create_notice'),
     url(r'^create_category$', views.create_category, name='create_category'),
-    
-
+    url(r'^desactivate_user/(?P<id_user>\d+)$', views.desactivate_user, name='desactivate_user'),
+    url(r'^delete_category/(?P<category>\d+)$', views.delete_category, name='delete_category'),
+    url(r'^edit_admin/(?P<id_user>\d+)$', views.edit_admin, name='edit_admin'),
+    url(r'^edit_graduated/(?P<id_user>\d+)$', views.edit_graduated, name='edit_graduated'),
 ]
 
 if settings.DEBUG:

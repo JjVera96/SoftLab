@@ -10,7 +10,15 @@
 	{{ user.username }}
 	{{ user.email }}
 	{{ user.first_name }}
-	{{ user.last_name }}<br>
+	{{ user.last_name }}
+	{{ user.is_active }}
+	{% if request.user.is_staff %}
+	<button class="btn btn-outline-warning"><a href="/edit_admin/{{user.username}}">Modificar</a></button>
+	{% endif %}
+	{% if request.user.is_admin %}
+	<button class="btn btn-outline-warning"><a href="/edit_graduated/{{user.username}}">Modificar</a></button>
+	{% endif %} 
+	<button class="btn btn-outline-danger"><a href="/desactivate_user/{{user.username}}">Desactivar</a></button><br>
 	{% endfor %}
 {% endif %}
 </div>
