@@ -1,40 +1,47 @@
-function validarFormulario(){
- 		
- 		var txtUser = document.getElementById('username').value;
-        var txtPrimerNombre = document.getElementById('first_name').value;
-        var txtPrimerApellido = document.getElementById('last_name').value;
-        var txtSegundoApellido = document.getElementById('second_last_name').value;
-        var txtCorreo = document.getElementById('email').value;
-        var txtGender = document.getElementById('gender').selectedIndex;
- 
- 
-        //Test campo obligatorio
-        if(txtPrimerNombre == null || txtPrimerNombre.length == 0 || /^[a-z A-Z]+$/.test(txtPrimerNombre)){
-            alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
-            return false;
-        }
+// Wait for the DOM to be ready
+$(function() {
 
-        if(txtPrimerApellido == null || txtPrimerApellido.length == 0 || /^[a-z A-Z]+$/.test(txtPrimerApellido)){
-            alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
-            return false;
-        }
-
-        if(txtSegundoApellido == null || txtSegundoApellido.length == 0 || /^[a-z A-Z]+$/.test(txtSegundoApellido)){
-            alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
-            return false;
-        }
- 
-        //Test correo
-        if(!(/\S+@utp.edu.co/.test(txtCorreo))){
-            alert('ERROR: Debe escribir un correo institucional (@utp.edu.co)');
-            return false;
-        }
-
-        //Test comboBox
-		if(txtGender == null || txtGender == 0){
-			alert('ERROR: Debe seleccionar una opción');
-			return false;
-		}
- 
-        return true;
+  jQuery.validator.addMethod("validatemail",
+           function(email, element) {
+                   return /^[A-Za-z\d=#$%]+@utp.edu.co$/.test(value);
+           },
+   "Nada de caracteres especiales, por favor"
+);  
+  // Initialize form validation on the registration form.
+  // It has the name attribute "registration"
+  $("form[name='admin_registration']").validate({
+    // Specify validation rules
+    rules: {
+      // The key name on the left side is the name attribute
+      // of an input field. Validation rules are defined
+      // on the right side
+      username: "required",
+      email: {
+        required: true,
+        // Specify that email should be validated
+        // by the built-in "email" rule
+        validatemail: true,
+        email: true
+      }, 
+      first_name: "required",
+      last_name: "required",
+      second_last_name: "required",
+      address= "required",
+      
+    },
+    // Specify validation error messages
+    messages: {
+      username: "Por favor digita tu número de identificación",
+      email: "Por favor digita un correo institucional (@utp.edu.co)"
+      first_name: "Por favor digita tu primer nombre",
+      last_name: "Por favor digita tu primer apellido",
+      second_last_name:"Por favor digita tu segundo apellido",
+      address: "Por favor digite su dirección"      
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+      form.submit();
     }
+  });
+});
