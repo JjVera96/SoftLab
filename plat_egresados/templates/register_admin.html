@@ -6,7 +6,10 @@
 <div class="container">
 {% if ad_form and user_form %}
 	<center>
-	<form method="POST" action=""> {% csrf_token %}
+	<script src="../static_pro/static/vendor/jquery/dist/jquery.min.js"></script>
+	<script src="../static_pro/static/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="../static_pro/static/js/forms.js"></script>
+	<form method="POST" name="admin_registration" action=""> {% csrf_token %}
 	<label for="inputEmail4">Identificación</label>
 	<input type="text" name="username" class="form-control" placeholder="Codigo" required="True">
 	{{ user_form.errors.username }}
