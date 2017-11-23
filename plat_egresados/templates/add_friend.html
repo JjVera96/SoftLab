@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block head_title %}Amigos{% endblock %}
+{% block title_content %}Amigos{% endblock %}
+{% block sub_title_content %}{{ msg }}{% endblock %}
+{% block content %}
+<div class="container">
+    Amigos Recomendados<br>
+    {% for friend in friends %}
+    {% if friend.user.username != user.username %}
+    {{ friend.user.first_name }} {{ friend.user.last_name }}
+    <button class="btn btn-outline-primary"><a href="/add_friends/{{friend.user.username}}">Agregar</a></button><br>
+    {% endif %}
+    {% endfor %}
+    Mis Amigos<br>
+    {{ msg }}
+    {% for friend in my_friends %}
+    {{ friend.user.first_name }} {{ friend.user.last_name }}
+    <button class="btn btn-outline-primary"><a href="/send_message/{{friend.user.username}}">Enviar Mensaje</a></button>
+    <button class="btn btn-outline-danger"><a href="/delete_friends/{{friend.user.username}}">Eliminar</a></button><br>
+    {% endfor %}
+</div>
+{% endblock %}

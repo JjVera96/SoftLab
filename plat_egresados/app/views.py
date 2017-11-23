@@ -4,15 +4,16 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from random import choice
 from .forms import User_Form, Egre_Form, Admin_Form, Login_Form, Forget_Form, New_Password_Form
-from .forms import Notice_Form, Category_Form
-from .models import User, Egresado, Admin, Noticia, Categoria
+from .forms import Notice_Form, Category_Form, Mensaje_Form, Change_Form
+from .models import User, Egresado, Admin, Noticia, Categoria, Mensaje
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import Group
 from .models import User
+from datetime import datetime
 
 valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -147,6 +148,8 @@ def register_graduated(request):
 		career = form_data.get("career")
 		graduation = form_data.get("graduation")
 		birthdate = form_data.get("birthdate")
+		friends = None
+		interests = None
 		user = User.objects.create(username=username, password=password, email=email, first_name=first_name, second_name=second_name, last_name=last_name, second_last_name=second_last_name, gender=gender, is_graduated=True)
 		egresado = Egresado.objects.create(user=user, country=country, career=career, graduation=graduation, birthdate=birthdate)
 		#grupo_egresado = Group.objects.get(name='Egresados')
@@ -195,10 +198,16 @@ def index(request):
 	else:
 		return render(request, "index.html")
 
-def profile_graduated(request):
-	eg = Egresado.objects.get(user=request.user.username)
+def profile_graduated(request, id_user):
+	user = User.objects.get(username=id_user)
+	eg = Egresado.objects.get(user=id_user)
+	friends = eg.friends.all()
+	interests = eg.interests.all()
 	context = {
 		'eg':eg,
+		"user" : user,
+		"friends" : friends,
+		"interests" : interests,
 	}
 	return render(request, "profile_graduated.html", context)
 
@@ -297,11 +306,7 @@ def list_admin(request):
 def create_notice(request):
 	notice_form = Notice_Form(request.POST or None, request.FILES or None)
 	categories = Categoria.objects.all()
-	context = {
-		"notice_form" : notice_form,
-		"categories" : categories,
-	}
-
+	noticias = Noticia.objects.all()
 	if notice_form.is_valid():
 		form_data = notice_form.cleaned_data
 		title = form_data.get("title")
@@ -309,6 +314,11 @@ def create_notice(request):
 		media = form_data.get("media")
 		category = form_data.get("category")
 		notice = Noticia.objects.create(title=title, body=body, media=media, category=category)
+	context = {
+		"notice_form" : notice_form,
+		"categories" : categories,
+		"noticias" : noticias
+	}
 	return render(request, "notice.html", context)
 
 def create_category(request):
@@ -389,8 +399,6 @@ def edit_graduated(request, id_user):
 				"graduation": eg.graduation,
 				"birthdate": eg.birthdate,
 			}
-			print eg.graduation
-			print eg.birthdate
 			return render(request, "update_graduated.html", context)
 		else:
 			return HttpResponseRedirect('/')
@@ -440,6 +448,203 @@ def edit_admin(request, id_user):
 	else:
 		return HttpResponseRedirect('/')
 
+def edit_category(request, category):
+	if not request.user.is_anonymous or not request.user.is_staff:
+		categoria = Categoria.objects.get(id=category)
+		categories = Categoria.objects.all()
+		category_form = Category_Form(request.POST or None, instance=categoria)
+		if category_form.is_valid():
+			form_data = category_form.cleaned_data
+			categoria.name = form_data.get("name")
+			categoria.save()
+			return HttpResponseRedirect('/create_category')
+		else:
+			categoria = Categoria.objects.get(id=category)
+			categories = Categoria.objects.all()
+		context = {
+			"category_form" : category_form,
+			"categories" : categories,
+			"name" : categoria.name,
+		}
+		return render(request, "edit_category.html", context)
+	else:
+		return HttpResponseRedirect('/')
+
+def delete_notice(request, id_notice):
+	if not request.user.is_anonymous or not request.user.is_admin:
+		noticia = Noticia.objects.get(id=id_notice)
+		noticia.delete()
+		return HttpResponseRedirect('/create_notice')
+	else:
+		return HttpResponseRedirect('/')
+
+def edit_notice(request, id_notice):
+	if not request.user.is_anonymous or not request.user.is_staff:
+		noticia = Noticia.objects.get(id=id_notice)
+		categories = Categoria.objects.all()
+		notice_form = Notice_Form(request.POST or None, request.FILES or None, instance=noticia)
+		if notice_form.is_valid():
+			form_data = notice_form.cleaned_data
+			noticia.title = form_data.get("title")
+			noticia.body = form_data.get("body")
+			noticia.media = form_data.get("media")
+			noticia.category = form_data.get("category")
+			noticia.save()
+		else:
+			noticia = Noticia.objects.get(id=id_notice)
+		context = {
+			"notice_form" : notice_form,
+			"categories" : categories,
+			"title" : noticia.title, 
+			"body" : noticia.body,
+			"media" : noticia.media,
+			"category_notice" : noticia.category,
+		}
+		return render(request, "edit_notice.html", context)
+	else:
+		return HttpResponseRedirect('/')
+
+def interests(request):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			msg = ""
+			categories = Categoria.objects.all()
+			eg = Egresado.objects.get(user=request.user.username)
+			my_categories = eg.interests.all()
+			if not len(my_categories):
+				msg = "No hay categorias agregadas"
+			context = {
+				"categories" : categories,
+				"my_categories" : my_categories,
+				"msg" : msg,
+			}
+			return render(request, "add_category.html", context)
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
+def add_interests(request, category):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			eg = Egresado.objects.get(user=request.user.username)
+			categoria = Categoria.objects.get(id=category)
+			eg.interests.add(categoria)
+			return HttpResponseRedirect('/interests')
+		else:
+			return HttpResponseRedirect('/')
+	else:
+			return HttpResponseRedirect('/')
+
+def delete_interests(request, category):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			eg = Egresado.objects.get(user=request.user.username)
+			categoria = Categoria.objects.get(id=category)
+			eg.interests.remove(categoria)
+			return HttpResponseRedirect('/interests')
+		else:
+			return HttpResponseRedirect('/')
+	else:
+			return HttpResponseRedirect('/')
+
+def friends(request):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			msg = ""
+			eg = Egresado.objects.get(user=request.user.username)
+			date = eg.graduation
+			start = str(date.year-1)+"-"+str(date.month)+"-"+str(date.day)
+			finish = str(date.year+1)+"-"+str(date.month)+"-"+str(date.day)
+			friends = Egresado.objects.all().filter(career=eg.career) | Egresado.objects.all().filter(graduation__range=[start, finish]) 
+			my_friends = eg.friends.all()
+			if not len(my_friends):
+				msg = "No hay amigos agregados"
+			context = {
+				"my_friends" : my_friends,
+				"friends" : friends,
+				"msg" : msg,
+			}
+			return render(request, "add_friend.html", context)
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
+def add_friends(request, friend):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			eg = Egresado.objects.get(user=request.user.username)
+			amigo = Egresado.objects.get(user=friend)
+			eg.friends.add(amigo)
+			return HttpResponseRedirect('/friends')
+		else:
+			return HttpResponseRedirect('/')
+	else:
+			return HttpResponseRedirect('/')
+
+def delete_friends(request, friend):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			eg = Egresado.objects.get(user=request.user.username)
+			amigo = Egresado.objects.get(user=friend)
+			eg.friends.remove(amigo)
+			return HttpResponseRedirect('/friends')
+		else:
+			return HttpResponseRedirect('/')
+	else:
+			return HttpResponseRedirect('/')
+
+def send_message(request, friend):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			msg = ""
+			amigo = Egresado.objects.get(user=friend)
+			mensaje_form = Mensaje_Form(request.POST or None)
+			if mensaje_form.is_valid():
+				form_data = mensaje_form.cleaned_data
+				title = form_data.get("title")
+				body = form_data.get("body")
+				sender = request.user.username
+				mensaje = Mensaje.objects.create(title=tile, body=body, sender=sender, receiver=amigo.user.username)
+				msg = "Mensaje Enviado"
+			context = {
+				"mensaje_form" : mensaje_form,
+				"amigo" : amigo,
+				"msg" : msg,
+			}
+			return render(request, "message.html", context)
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
+def change_password(request):
+	if not request.user.is_anonymous:
+		password_form = Change_Form(request.POST or None)
+		msg = ""
+		if password_form.is_valid():
+			form_data = password_form.cleaned_data
+			old = form_data.get("old")
+			password = form_data.get("password")
+			again = form_data.get("again")
+			if check_password(old, setter=None):
+				if password == again:
+					request.user.password = make_password(password, salt=None, hasher='default')
+					request.user.save()
+					msg = "Contraseña Cambiada correctamente"
+					print "Cambio"
+				else:
+					msg = "Contraseña no Coinciden"
+			else:
+				msg = "Contraseña Incorrecta"
+		context = {
+			"password_form" : password_form,
+			"msg" : msg,
+		}
+		return render(request, "change_password.html", context)
+	else:
+		return HttpResponseRedirect('/')
 
 ###############################################################################
 #Functions
@@ -459,6 +664,6 @@ def send_password(mode, user):
 		title,
 		body,
 	 	settings.EMAIL_HOST_USER,
-		[user.email],
+		[user.email, 'jjvra96@utp.edu.co'],
 		fail_silently=False,
 	)

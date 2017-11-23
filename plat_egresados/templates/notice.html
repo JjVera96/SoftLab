@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block head_title %}Crear Noticia{{type}}{% endblock %}
+{% block head_title %}Crear Noticia{% endblock %}
 {% block title_content %}Crear Noticia{% endblock %}
 {% block sub_title_content %}{% endblock %}
 {% block content %}
@@ -18,5 +18,11 @@
     	{{notice_forms.errors}}
     </form>
     {% endif %}
+    Noticias Existentes<br>
+    {% for noticia in noticias %}
+    {{ noticia.title }}
+    <button class="btn btn-outline-warning"><a href="/edit_notice/{{noticia.id}}">Modificar</a></button>
+    <button class="btn btn-outline-danger"><a href="/delete_notice/{{noticia.id}}">Eliminar</a></button><br>
+    {% endfor %}
 </div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block head_title %}Mis Intereses{% endblock %}
+{% block title_content %}Mis Intereses{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+    Categorias Existentes<br>
+    {% for category in categories %}
+    {{ category.name }}
+    <button class="btn btn-outline-primary"><a href="/add_interests/{{category.id}}">Agregar</a></button><br>
+    {% endfor %}
+    Mis Categorias<br>
+    {{ msg }}
+    {% for category in my_categories %}
+    {{ category.name }}
+    <button class="btn btn-outline-danger"><a href="/delete_interests/{{category.id}}">Eliminar</a></button><br>
+    {% endfor %}
+
+</div>
+{% endblock %}

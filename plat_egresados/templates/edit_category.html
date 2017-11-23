@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block head_title %}Crear Categoria{% endblock %}
-{% block title_content %}Crear Categoria{% endblock %}
+{% block head_title %}Editar Categoria{% endblock %}
+{% block title_content %}Editar Categoria{% endblock %}
 {% block sub_title_content %}{% endblock %}
 {% block content %}
 <div class="container">
 	{% if category_form %}
     <form  method="POST" action="">{% csrf_token %}
-    	<input type="text" name="name" placeholder="Nombre">
+    	<input type="text" value="{{name}}" name="name" placeholder="Nombre">
     	<button type="submit" name="Enviar" class="btn btn-primary">Guardar</button>
         {{category.errors.name}}
     </form>

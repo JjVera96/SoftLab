@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block head_title %}{{user.first_name}} {{user.last_name}}{% endblock %}
-{% block title_content %}Pagina Principal Egresados{% endblock %}
+{% block title_content %}Perfil Egresado{% endblock %}
 {% block sub_title_content %}{% endblock %}
 {% block content %}
     <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center">
@@ -18,30 +18,33 @@
         </div>
         <div class=" container col-xs-12 form-control " style="margin:10px; background:#bbfffc">
             <button class="btn btn-success"><a href="/edit_graduated/{{request.user.username}}">Editar</a></button>
-
+            <button class="btn btn-success"><a href="{% url 'change_password' %}">Cambiar Contraseña</a></button>
         </div>
     </div>
     <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center " style=" width: 580px; height:580ssspx; overflow: scroll; ">
         <div>
+          <h2>Intereses</h2>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              {% for interes in interests %}
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-primary">intereses</button>
+                <button type="button" class="btn btn-default btn-primary">{{interes.name}}</button>
               </div>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-primary">general</button>
-              </div>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-primary">sugerencias</button>
-              </div>
+              {% endfor %}
             </div>
         </div>
     </div>
-    <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center " >Social
+    <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center ">
+      <h2></h2>
+            
         <div class=" container col-xs-12" style="margin:10px;">
                 <div class="card card-primary">
                   <div class="card-block">
-                    <h4 class="card-title">Circulos</h4>
-                    <p class="pcard"> Lorem Ipsum</p>                                
+                    <h4 class="card-title">Amigos</h4>
+                    {% for friend in friends %}
+                    {% if friend.user.username != user.username%}
+                    <p class="pcard">{{friend.user.first_name}} {{friend.user.last_name}}</p>
+                    {% endif %}
+                    {% endfor %}
                   </div>
                 </div>
             </div>

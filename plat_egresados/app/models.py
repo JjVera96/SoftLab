@@ -29,8 +29,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	REQUIRED_FIELDS = ["email"]
 
 	class Meta:
-		verbose_name = _('user')
-		verbose_name_plural = _('users')
+		verbose_name = _('Usuario')
+		verbose_name_plural = _('Usuarios')
 
 	def get_full_name(self):
 		full_name = '%s %s' % (self.first_name, self.last_name)
@@ -48,8 +48,10 @@ class Egresado(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	country = models.CharField(_('Pais'), max_length=50)	
 	career = models.CharField(_('Carrera'), max_length=50)
-	graduation = models.DateTimeField(_('Año de Graduación'))
-	birthdate = models.DateTimeField(_('Fecha de Cumpleaños'))
+	graduation = models.DateField(_('Año de Graduación'))
+	birthdate = models.DateField(_('Fecha de Cumpleaños'))
+	friends = models.ManyToManyField("Egresado")
+	interests = models.ManyToManyField("Categoria")
 
 	def __unicode__(self):
 		return unicode(self.user)
@@ -81,7 +83,17 @@ class Noticia(models.Model):
 		verbose_name = _('Noticia')
 		verbose_name_plural = _('Noticias')
 
-	title = models.CharField(_('title'), max_length=50)
-	body = models.CharField(_('body'), max_length=2000)
-	media = models.ImageField(_('image'), upload_to='images/')
-	category = models.CharField(_('category'), max_length=50)
+	title = models.CharField(_('Titulo'), max_length=50)
+	body = models.CharField(_('Cuerpo'), max_length=2000)
+	media = models.ImageField(_('Imagen'), upload_to='images/')
+	category = models.CharField(_('Categoria'), max_length=50)
+
+class Mensaje(models.Model):
+	class Meta:
+		verbose_name = _('Mensaje')
+		verbose_name_plural = _('Mensajes')
+
+	receiver = models.CharField(_('Para'), max_length=50)
+	sender = models.CharField(_('De'), max_length=50)
+	title = models.CharField(_('Titulo'), max_length=50)
+	body = models.CharField(_('Cuerpo'), max_length=500)

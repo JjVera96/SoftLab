@@ -40,7 +40,13 @@
             {% if request.user.is_authenticated %}
             {% if request.user.is_graduated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile_graduated' %}">Perfil</a>
+              <a class="nav-link" href="/profile_graduated/{{user.username}}">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'interests' %}">Intereses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'friends' %}">Amigos</a>
             </li>
             {% endif %}
             {% if request.user.is_staff %}

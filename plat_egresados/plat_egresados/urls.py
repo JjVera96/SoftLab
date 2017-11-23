@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^register_graduated$', views.register_graduated, name='register_graduated'),
     url(r'^register_admin$', views.register_admin, name='register_admin'),
     url(r'^$', views.index, name='index'),
-    url(r'^profile_graduated$', views.profile_graduated, name='profile_graduated'),
+    url(r'^profile_graduated/(?P<id_user>\d+)$', views.profile_graduated, name='profile_graduated'),
     url(r'^profile_admin$', views.profile_admin, name='profile_admin'),
     url(r'^activate_graduated$', views.active_graduated, name='active_graduated'),
     url(r'^activate_admin$', views.active_admin, name='active_admin'),
@@ -44,6 +44,17 @@ urlpatterns = [
     url(r'^delete_category/(?P<category>\d+)$', views.delete_category, name='delete_category'),
     url(r'^edit_admin/(?P<id_user>\d+)$', views.edit_admin, name='edit_admin'),
     url(r'^edit_graduated/(?P<id_user>\d+)$', views.edit_graduated, name='edit_graduated'),
+    url(r'^edit_category/(?P<category>\d+)$', views.edit_category, name='edit_category'),
+    url(r'^delete_notice/(?P<id_notice>\d+)$', views.delete_notice, name='delete_notice'),
+    url(r'^edit_notice/(?P<id_notice>\d+)$', views.edit_notice, name='edit_notice'),
+    url(r'^interests$', views.interests, name='interests'),
+    url(r'^add_interests/(?P<category>\d+)$', views.add_interests, name='add_interests'),
+    url(r'^delete_interests/(?P<category>\d+)$', views.delete_interests, name='delete_interests'),
+    url(r'^friends$', views.friends, name='friends'),
+    url(r'^add_friends/(?P<friend>\d+)$', views.add_friends, name='add_friends'),
+    url(r'^delete_friends/(?P<friend>\d+)$', views.delete_friends, name='delete_friends'),
+    url(r'^send_message/(?P<friend>\d+)$', views.send_message, name='send_message'),
+    url(r'^change_password$', views.change_password, name='change_password'),
 ]
 
 if settings.DEBUG:

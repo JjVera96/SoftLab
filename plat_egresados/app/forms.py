@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Egresado, Admin
+from .models import User, Egresado, Admin, Noticia, Categoria, Mensaje
 
 class User_Form(forms.ModelForm):
 	class Meta:
@@ -40,11 +40,22 @@ class New_Password_Form(forms.Form):
 	password = forms.CharField(max_length=50)
 	again = forms.CharField(max_length=50)
 
-class Notice_Form(forms.Form):
-	title = forms.CharField(max_length=50)
-	body = forms.CharField(max_length=50)
-	media = forms.ImageField()
-	category = forms.CharField(max_length=50)
+class Change_Form(forms.Form):
+	old = forms.CharField(max_length=50)
+	password = forms.CharField(max_length=50)
+	again = forms.CharField(max_length=50)
 
-class Category_Form(forms.Form):
-	name = forms.CharField(max_length=50)
+class Notice_Form(forms.ModelForm):
+	class Meta:
+		model = Noticia
+		fields = ["title", "body", "media", "category"]
+
+class Category_Form(forms.ModelForm):
+	class Meta:
+		model = Categoria
+		fields = ["name"]
+
+class Mensaje_Form(forms.ModelForm):
+	class Meta:
+		model = Mensaje
+		fields = ["title", "body"]

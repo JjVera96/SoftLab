@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block head_title %}Editar Noticia{% endblock %}
+{% block title_content %}Editar Noticia{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+	{% if notice_form %}
+    <form  method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    	<input type="text" value="{{title}}" name="title" placeholder="Titulo"><br> 
+    	<textarea name="body" rows="20" cols="50" placeholder="Escribe aquí la noticia">{{body}}</textarea><br>
+        <img src="{{media.url}}"><br>
+    	<input type="file" accept=".jpeg, .jpg, .png" value="{{media.url}}" name="media"><br>
+        <select name="category">
+    	{% for category in categories %}
+        {% if category.name == category_notice %}
+        <option selected>{{ category }}</option>
+        {% else %}
+        <option >{{ category }}</option>
+        {% endif %}
+        {% endfor %}
+        </select>
+    	<button type="submit" name="Enviar" class="btn btn-primary">Guardar</button>
+    	{{notice_forms.errors}}
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
