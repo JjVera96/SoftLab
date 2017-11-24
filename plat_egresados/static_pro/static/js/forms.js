@@ -1,47 +1,108 @@
-// Wait for the DOM to be ready
-$(function() {
-
-  jQuery.validator.addMethod("validatemail",
-           function(email, element) {
-                   return /^[A-Za-z\d=#$%]+@utp.edu.co$/.test(value);
-           },
-   "Nada de caracteres especiales, por favor"
-);  
-  // Initialize form validation on the registration form.
-  // It has the name attribute "registration"
-  $("form[name='admin_registration']").validate({
-    // Specify validation rules
-    rules: {
-      // The key name on the left side is the name attribute
-      // of an input field. Validation rules are defined
-      // on the right side
-      username: "required",
-      email: {
-        required: true,
-        // Specify that email should be validated
-        // by the built-in "email" rule
-        validatemail: true,
-        email: true
-      }, 
-      first_name: "required",
-      last_name: "required",
-      second_last_name: "required",
-      address= "required",
-      
-    },
-    // Specify validation error messages
-    messages: {
-      username: "Por favor digita tu número de identificación",
-      email: "Por favor digita un correo institucional (@utp.edu.co)"
-      first_name: "Por favor digita tu primer nombre",
-      last_name: "Por favor digita tu primer apellido",
-      second_last_name:"Por favor digita tu segundo apellido",
-      address: "Por favor digite su dirección"      
-    },
-    // Make sure the form is submitted to the destination defined
-    // in the "action" attribute of the form when valid
-    submitHandler: function(form) {
-      form.submit();
+function validarFormulario(){
+ 
+    var txtUsername = document.getElementById('username').value;
+    var txtCorreo = document.getElementById('email').value;
+    var txtFirstName = document.getElementById('first_name').value;
+    var txtLastName = document.getElementById('last_name').value;
+    var txtSecontLastName = document.getElementById('second_last_name').value;
+    var txtAddress = document.getElementById('address').value;
+    var txtCity = document.getElementById('city').value;
+ 
+    //Test Username
+    if(txtUsername == null || txtUsername.length == 0 || !(/^\d+$/.test(txtUsername))){
+      alert('ERROR: El campo nombre no debe ir vacío,lleno de solamente espacios en blanco y debe contener solo digitos');
+      return false;
     }
-  });
-});
+ 
+ 
+    //Test correo
+    if(!(/^[a-z A-Z]+@utp.edu.co$/.test(txtCorreo))){
+      alert('ERROR: Debe escribir un correo institucional (@utp.edu.co)');
+      return false;
+    }
+ 
+    if(txtFirstName == null || txtFirstName.length == 0 || /^\s+$/.test(txtFirstName) !(/^[a-z A-Z]]+$/.test(txtFirstName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtLastName == null || txtLastName.length == 0 || /^\s+$/.test(txtLastName) || !(/^[a-z A-Z]]+$/.test(txtLastName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtSecontLastName == null || txtSecontLastName.length == 0 || /^\s+$/.test(txtSecontLastName) || !(/^[a-z A-Z]]+$/.test(txtSecontLastName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtAddress == null || txtAddress.length == 0 || /^\s+$/.test(txtAddress)){
+      alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
+      return false;
+    }
+
+    if(txtCity == null || txtCity.length == 0 || /^\s+$/.test(txtSecontLastName) || !(/^[a-z A-Z]]+$/.test(txtSecontLastName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+ 
+    return true;
+  }
+
+
+
+  function validarFormularioEgre(){
+ 
+    var txtUsername = document.getElementById('username').value;
+    var txtCorreo = document.getElementById('email').value;
+    var txtFirstName = document.getElementById('first_name').value;
+    var txtLastName = document.getElementById('last_name').value;
+    var txtSecontLastName = document.getElementById('second_last_name').value;
+    var txtGraduate = document.getElementById('graduation').value;
+    var txtBorn = document.getElementById('birthdate').value;
+ 
+    //Test Username
+    if(txtUsername == null || txtUsername.length == 0 || !(/^\d+$/.test(txtUsername))){
+      alert('ERROR: El campo nombre no debe ir vacío,lleno de solamente espacios en blanco y debe contener solo digitos');
+      return false;
+    }
+ 
+ 
+    //Test correo
+    if(!(/^[a-z A-Z]+@utp.edu.co$/.test(txtCorreo))){
+      alert('ERROR: Debe escribir un correo institucional (@utp.edu.co)');
+      return false;
+    }
+ 
+    if(txtFirstName == null || txtFirstName.length == 0 || /^\s+$/.test(txtFirstName) !(/^[a-z A-Z]]+$/.test(txtFirstName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtLastName == null || txtLastName.length == 0 || /^\s+$/.test(txtLastName) || !(/^[a-z A-Z]]+$/.test(txtLastName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtSecontLastName == null || txtSecontLastName.length == 0 || /^\s+$/.test(txtSecontLastName) || !(/^[a-z A-Z]]+$/.test(txtSecontLastName))){
+      alert('ERROR: El campo nombre no debe ir vacío, lleno de solamente espacios en blanco o con numeros');
+      return false;
+    }
+
+    if(txtGraduate == null || txtGraduate.length == 0 || /^\s+$/.test(txtGraduate)){
+      alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
+      return false;
+    }
+
+    if(txtBorn == null || txtBorn.length == 0 || /^\s+$/.test(txtBorn)){
+      alert('ERROR: El campo nombre no debe ir vacío o lleno de solamente espacios en blanco');
+      return false;
+    }
+
+    if(txtBorn >= txtGraduate ){
+      alert('ERROR: Los campos de fecha de nacimiento y graduación no son lógicos');
+      return false;
+    }
+ 
+    return true;
+  }
