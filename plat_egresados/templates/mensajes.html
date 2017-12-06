@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head_title %}Mensajes{% endblock %}
+{% block title_content %}Registro de Mensajes{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+    Registro de Mensajes<br>
+    {% for mensaje in mensajes %}
+    <a href="/view_message/{{mensaje.id}}">{{ mensaje.title }}</a> {{ mensaje.date }}<br>  
+    {% endfor %}
+</div>
+{% endblock %}

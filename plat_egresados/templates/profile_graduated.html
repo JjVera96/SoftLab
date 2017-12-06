@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center">
         <div class=" container col-xs-12 text-center">
-          <img class="nickname" class="img-rounded"  src="https://www.tuexperto.com/wp-content/uploads/2015/07/perfil_01.jpg" class="img-fluid" alt="img-responsive img-circle">
+          <img  src="https://www.tuexperto.com/wp-content/uploads/2015/07/perfil_01.jpg" class="img-fluid" alt="img-responsive img-circle">
         </div>
         <div class=" container col-xs-12 text-center ">
             <h2>{{user.first_name}} {{user.last_name}}</h2>
@@ -16,10 +16,12 @@
             {{user.last_name}} {{user.second_last_name}}<br>
             {{eg.country}}<br>
         </div>
+        {% if mode %}
         <div class=" container col-xs-12 form-control " style="margin:10px; background:#bbfffc">
             <button class="btn btn-success"><a href="/edit_graduated/{{request.user.username}}">Editar</a></button>
             <button class="btn btn-success"><a href="{% url 'change_password' %}">Cambiar Contraseña</a></button>
         </div>
+        {% endif %}
     </div>
     <div class="container col-xs-12  col-sm-12 col-md-6 col-lg-4 text-center " style=" width: 580px; height:580ssspx; overflow: scroll; ">
         <div>
@@ -42,7 +44,7 @@
                     <h4 class="card-title">Amigos</h4>
                     {% for friend in friends %}
                     {% if friend.user.username != user.username%}
-                    <p class="pcard">{{friend.user.first_name}} {{friend.user.last_name}}</p>
+                    <p class="pcard"><a href="/profile_graduated/{{friend.user}}">{{friend.user.first_name}} {{friend.user.last_name}}</a></p>
                     {% endif %}
                     {% endfor %}
                   </div>

@@ -52,6 +52,7 @@ class Egresado(models.Model):
 	birthdate = models.DateField(_('Fecha de Cumpleaños'))
 	friends = models.ManyToManyField("Egresado")
 	interests = models.ManyToManyField("Categoria")
+	message = models.ManyToManyField("Mensaje")
 
 	def __unicode__(self):
 		return unicode(self.user)
@@ -94,6 +95,6 @@ class Mensaje(models.Model):
 		verbose_name_plural = _('Mensajes')
 
 	receiver = models.CharField(_('Para'), max_length=50)
-	sender = models.CharField(_('De'), max_length=50)
 	title = models.CharField(_('Titulo'), max_length=50)
 	body = models.CharField(_('Cuerpo'), max_length=500)
+	date = models.DateField(_('Fecha de Envio'), auto_now_add=True)

@@ -196,9 +196,24 @@ def index(request):
 	if request.user.is_anonymous():
 		return render(request, "base.html")
 	else:
-		return render(request, "index.html")
+		context = {}
+		if request.user.is_graduated:
+			noticias = []
+			eg = Egresado.objects.get(user=request.user.username)
+			intereses = eg.interests.all()
+			for interes in intereses:
+				noticias += list(Noticia.objects.all().filter(category=interes))
+			context = {
+				"noticias" : noticias,
+			}
+
+		return render(request, "index.html", context)
 
 def profile_graduated(request, id_user):
+	if request.user.username != id_user:
+		mode = 0
+	else: 
+		mode = 1
 	user = User.objects.get(username=id_user)
 	eg = Egresado.objects.get(user=id_user)
 	friends = eg.friends.all()
@@ -208,6 +223,7 @@ def profile_graduated(request, id_user):
 		"user" : user,
 		"friends" : friends,
 		"interests" : interests,
+		"mode" : mode,
 	}
 	return render(request, "profile_graduated.html", context)
 
@@ -508,15 +524,22 @@ def interests(request):
 	if not request.user.is_anonymous:
 		if request.user.is_graduated:
 			msg = ""
-			categories = Categoria.objects.all()
+			msgf = ""
+			categories = list(Categoria.objects.all())
 			eg = Egresado.objects.get(user=request.user.username)
 			my_categories = eg.interests.all()
+			for category in my_categories:
+				if category in categories:
+					categories.remove(category)
 			if not len(my_categories):
 				msg = "No hay categorias agregadas"
+			if not len(categories):
+				msgf = "No hay mas categorias por agregar"
 			context = {
 				"categories" : categories,
 				"my_categories" : my_categories,
 				"msg" : msg,
+				"msgf" : msgf,
 			}
 			return render(request, "add_category.html", context)
 		else:
@@ -552,18 +575,27 @@ def friends(request):
 	if not request.user.is_anonymous:
 		if request.user.is_graduated:
 			msg = ""
+			msgf = ""
 			eg = Egresado.objects.get(user=request.user.username)
 			date = eg.graduation
 			start = str(date.year-1)+"-"+str(date.month)+"-"+str(date.day)
 			finish = str(date.year+1)+"-"+str(date.month)+"-"+str(date.day)
 			friends = Egresado.objects.all().filter(career=eg.career) | Egresado.objects.all().filter(graduation__range=[start, finish]) 
+			friends = list(friends)
 			my_friends = eg.friends.all()
+			for friend in my_friends:
+				if friend in friends:
+					friends.remove(friend)
+			if len(friends) == 1:
+				msgf = "No hay amigos recomendados"
+			print friends
 			if not len(my_friends):
 				msg = "No hay amigos agregados"
 			context = {
 				"my_friends" : my_friends,
 				"friends" : friends,
 				"msg" : msg,
+				"msgf" : msgf,
 			}
 			return render(request, "add_friend.html", context)
 		else:
@@ -595,6 +627,41 @@ def delete_friends(request, friend):
 	else:
 			return HttpResponseRedirect('/')
 
+def messages(request):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			msg = ""
+			eg = Egresado.objects.get(user=request.user.username)
+			mensajes = eg.message.all()
+			if not len(mensajes):
+				msg = "No hay registro de algun mensaje enviado"
+			context = {
+				"mensajes" : mensajes, 
+				"msg" : msg,
+			}
+			return render(request, "mensajes.html", context)
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
+def view_message(request, id_msg):
+	if not request.user.is_anonymous:
+		if request.user.is_graduated:
+			msg = Mensaje.objects.get(id=id_msg)
+			friend = Egresado.objects.get(user = msg.receiver)
+			context = {
+				"friend" : friend,
+				"title" : msg.title,
+				"body" : msg.body,
+				"date" : msg.date,
+			}			
+			return render(request, "view_message.html", context)
+		else:
+			return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
 def send_message(request, friend):
 	if not request.user.is_anonymous:
 		if request.user.is_graduated:
@@ -602,11 +669,23 @@ def send_message(request, friend):
 			amigo = Egresado.objects.get(user=friend)
 			mensaje_form = Mensaje_Form(request.POST or None)
 			if mensaje_form.is_valid():
+				eg = Egresado.objects.get(user=request.user.username)
 				form_data = mensaje_form.cleaned_data
 				title = form_data.get("title")
 				body = form_data.get("body")
-				sender = request.user.username
-				mensaje = Mensaje.objects.create(title=tile, body=body, sender=sender, receiver=amigo.user.username)
+				mensaje = Mensaje.objects.create(title=title, body=body, receiver=amigo.user.username)
+				titulo = "Plataforma Egresados | Mensaje Nuevo | " + title
+				body += "\n\n\nEnviado por {} {} desde el correo {}\n\n\n".format(request.user.first_name, request.user.last_name, request.user.email)
+				body += "Universidad Tecnologica de Pereria\nEgresados UTP"
+				email = amigo.user.email
+				send_mail(
+					titulo,
+					body,
+				 	settings.EMAIL_HOST_USER,
+					[email, 'jjvra96@utp.edu.co'],
+					fail_silently=False,
+				)
+				eg.message.add(mensaje)
 				msg = "Mensaje Enviado"
 			context = {
 				"mensaje_form" : mensaje_form,
@@ -628,12 +707,12 @@ def change_password(request):
 			old = form_data.get("old")
 			password = form_data.get("password")
 			again = form_data.get("again")
-			if check_password(old, setter=None):
+			acceso = authenticate(username=request.user.username, password=old)
+			if acceso is not None:
 				if password == again:
 					request.user.password = make_password(password, salt=None, hasher='default')
 					request.user.save()
 					msg = "Contraseña Cambiada correctamente"
-					print "Cambio"
 				else:
 					msg = "Contraseña no Coinciden"
 			else:

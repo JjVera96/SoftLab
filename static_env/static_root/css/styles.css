@@ -1,5 +1,4 @@
--body {
- .egresado{
+.egresado{
   	background-image: url(egresados.jpg);
   	background-color: black;
   	background-size:cover;
@@ -8,7 +7,7 @@
   	text-align: center
  }
  
- .admin{
+.admin{
  	background-image: url(admin.jpg);
  	background-size:cover;
  	background-attachment: fixed;
@@ -17,7 +16,7 @@
  }
  
  
- .register{
+.register{
  	background-image: url(register.jpg);
  	background-attachment: fixed;
  	color: white;
@@ -25,13 +24,81 @@
  	text-align: center
  }
  
- #buttonegre{
+#buttonegre{
  	background-color: #15B111;
  	color: white; 
  }
  
  
- #buttonadmin{
+#buttonadmin{
  	color: white;
  	background-color: #393AFF 
  }
+
+
+ .forget{
+ 	background-image: url(recuperar.jpg);
+ 	background-size:  cover;
+ 	background-attachment: fixed;
+ 	font-family: 'Galada', cursive ;
+ 	font-size: xx-large;
+ 	color:white;
+ 	position: absolute;
+	top: 18%;
+	left: 10%;
+	margin-top: -100px
+}
+
+.no_registred{
+	background-image: url(no_registred.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+	top: 18%;
+	margin-left: 10%;
+	margin-top: 100px;
+	color:white;
+}
+
+.no_registred h1, .no_registred h2{
+	font-family: 'Galada';
+}
+
+.logout{
+	background-image: url(logout.jpg);
+	top: 18%;
+	margin-left: 10%;
+	margin-top: 100px
+}
+
+.logout h1{
+	font-family: 'Galada';
+}
+
+.first_entrance{
+	background-image: url(first_entrance.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	margin-left: 10%;
+	margin-top: 43px;
+	text-align: justify;
+	color: white;
+	font-family: 'Gentium Book Basic', serif;
+}
+
+
+.activate_graduated{
+	background-image: url(activate.png);
+	background-size: cover;
+	background-attachment: fixed;
+	text-align: justify;
+	color: black;
+	margin-left: 10%;
+	margin-top: 43px;
+	font-family: 'Gentium Book Basic', serif;
+}
+
+.img-fluid{
+	width: 50%;
+	height: 60%;
+
+}

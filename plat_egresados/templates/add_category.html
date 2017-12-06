@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container">
     Categorias Existentes<br>
+    {{ msgf }}<br>
     {% for category in categories %}
     {{ category.name }}
     <button class="btn btn-outline-primary"><a href="/add_interests/{{category.id}}">Agregar</a></button><br>

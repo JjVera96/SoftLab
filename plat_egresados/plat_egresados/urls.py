@@ -55,7 +55,11 @@ urlpatterns = [
     url(r'^delete_friends/(?P<friend>\d+)$', views.delete_friends, name='delete_friends'),
     url(r'^send_message/(?P<friend>\d+)$', views.send_message, name='send_message'),
     url(r'^change_password$', views.change_password, name='change_password'),
+    url(r'^messages$', views.messages, name='messages'),
+    url(r'^view_message/(?P<id_msg>\d+)$', views.view_message, name='view_message'),
 ]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

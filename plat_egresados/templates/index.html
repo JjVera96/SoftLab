@@ -4,7 +4,16 @@
 {% block sub_title_content %}{% endblock %}
 {% block content %}
 <div class="container">
-    {% if request.user.is_staff %}
-    {% endif %}
+    {% for noticia in noticias %}
+    <div>
+    	<center>
+    	<img src="{{noticia.media.url}}"><br>
+    	<h2>{{ noticia.title }}</h2>
+    	<p> {{ noticia.body }}</p>
+    	{{ noticia.category }}<br>
+    	</center>
+    	<hr>
+    </div>
+    {% endfor %}
 </div>
 {% endblock%}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block head_title %}Mensajes{% endblock %}
+{% block title_content %}Registro de Mensajes{% endblock %}
+{% block sub_title_content %}{% endblock %}
+{% block content %}
+<div class="container">
+    Destino: {{ friend.user.first_name }} {{ friend.user.last_name }} | <a href="/profile_graduated/{{friend.user}}">{{ friend }}</a><br>
+    Titulo: {{ title }}<br>
+    Mensaje:<br>
+    {{ body }}<br><br>
+    Fecha: {{ date }}<br>
+</div>
+{% endblock %}	
