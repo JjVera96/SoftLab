@@ -49,3 +49,19 @@ Lo instalamos
 pip install archivo
 
 Luego de esto clonamos el repo en el entorno virtual y lo ejecutamos 
+
+#Desarrolladores
+
+
+Backend
+-------------------------
++ [**Juan José Vera Arango**](jjvera96)
+
+Fronted
+-------------------------
++ [**Dubel Fernando Giraldo Duque**](FerchoGD)
++ [**Sebastian Sanchez Largo**](Gallowtown)
+
+Diseño
+-------------------------
++ [**Karen Agualimpia**](h2odkream)

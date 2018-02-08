@@ -29,8 +29,8 @@ ALLOWED_HOSTS = ['*']
 
 #EMAIL
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "egresadosutp2017@gmail.com"
-EMAIL_HOST_PASSWORD = "h6gn5mvzx"
+EMAIL_HOST_USER = "@gmail.com"
+EMAIL_HOST_PASSWORD = "********"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
