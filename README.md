@@ -50,7 +50,7 @@ pip install archivo
 
 Luego de esto clonamos el repo en el entorno virtual y lo ejecutamos 
 
-#Desarrolladores
+# Desarrolladores
 
 
 Backend
