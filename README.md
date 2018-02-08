@@ -55,13 +55,13 @@ Luego de esto clonamos el repo en el entorno virtual y lo ejecutamos
 
 Backend
 -------------------------
-+ [**Juan José Vera Arango**](jjvera96)
++ [**Juan José Vera Arango**](https://github.com/JjVera96)
 
 Fronted
 -------------------------
-+ [**Dubel Fernando Giraldo Duque**](FerchoGD)
-+ [**Sebastian Sanchez Largo**](Gallowtown)
++ [**Dubel Fernando Giraldo Duque**](https://github.com/FerchoGD)
++ [**Sebastian Sanchez Largo**](https://github.com/Gallowtown)
 
 Diseño
 -------------------------
-+ [**Karen Agualimpia**](h2odkream)
++ [**Karen Agualimpia**](https://github.com/h2odkream)
