@@ -57,7 +57,7 @@ Backend
 -------------------------
 + [**Juan José Vera Arango**](https://github.com/JjVera96)
 
-Fronted
+Frontend
 -------------------------
 + [**Dubel Fernando Giraldo Duque**](https://github.com/FerchoGD)
 + [**Sebastian Sanchez Largo**](https://github.com/Gallowtown)
